@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnvr3n3hnfhbh"]
+
+[ext_resource type="PackedScene" uid="uid://b82xyl2dqnwky" path="res://Player.tscn" id="1_8ur0g"]
+[ext_resource type="Script" path="res://cam.gd" id="1_w56vn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wm46"]
+
+[node name="BasicTestScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("1_w56vn")
+
+[node name="Player" parent="." instance=ExtResource("1_8ur0g")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_4wm46")
