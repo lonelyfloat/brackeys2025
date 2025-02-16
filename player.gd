@@ -23,17 +23,15 @@ func _physics_process(delta: float) -> void:
 		
 	if bounce:
 		velocity += vel;
-		velocity.x = move_toward(velocity.x, 0, speed/1.2)
-		velocity.y = move_toward(velocity.y, 0, speed/1.2)
 		
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		if fmod(collision.get_angle(),PI) > 0.77:
-			vel = Vector2(velocity.x * -1,velocity.y)
+			vel = Vector2(velocity.x * -2,velocity.y)
 		else:
-			vel = Vector2(velocity.x,velocity.y * -1)
+			vel = Vector2(velocity.x,velocity.y * -2)
 		bounce = true
-		bounce_time(0.22)
+		bounce_time(1)
 		
 func bounce_time(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
