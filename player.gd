@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed = 300.0
+@export var speed = 300
 var speed_nerft = 1
 
 func _physics_process(delta: float) -> void:
@@ -18,11 +18,4 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.y = move_toward(velocity.y, 0, speed)
-		
-	var collision = move_and_collide(velocity * delta)
-	if collision:
-		#var collider = collision.get_collider()
-		#var angle = atan2(collider.position.x - position.x, collider.position.y - position.y)
-		
-		
 	move_and_slide()

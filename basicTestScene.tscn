@@ -16,7 +16,6 @@ height = 152
 script = ExtResource("1_w56vn")
 
 [node name="Player" parent="." instance=ExtResource("1_8ur0g")]
-speed = null
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(-440, 52)
