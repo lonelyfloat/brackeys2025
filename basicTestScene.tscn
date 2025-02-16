@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnvr3n3hnfhbh"]
+[gd_scene load_steps=6 format=3 uid="uid://daurrc68lmhxg"]
 
 [ext_resource type="PackedScene" uid="uid://b82xyl2dqnwky" path="res://Player.tscn" id="1_8ur0g"]
+[ext_resource type="PackedScene" uid="uid://b4dbq86g112nn" path="res://generic_crowd_npc.tscn" id="2_h48vl"]
+[ext_resource type="Texture2D" uid="uid://bs80vumhyddtt" path="res://icon.svg" id="3_nmpvq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4wm46"]
 size = Vector2(159, 156)
@@ -22,3 +24,9 @@ shape = SubResource("RectangleShape2D_4wm46")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 texture = SubResource("NoiseTexture2D_6xsw3")
+
+[node name="GenericCrowdNPC" parent="." instance=ExtResource("2_h48vl")]
+position = Vector2(302, -172)
+path = Array[Vector2]([Vector2(200, 0), Vector2(400, 100), Vector2(0, 50)])
+speed = 200.0
+texture = ExtResource("3_nmpvq")
