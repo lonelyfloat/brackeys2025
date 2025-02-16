@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://generic_crowd_npc.gd" id="1_qfsqu"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_s3rpf"]
-radius = 121.017
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8g5d"]
+size = Vector2(67, 112)
 
 [node name="GenericCrowdNPC" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_qfsqu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_s3rpf")
+shape = SubResource("RectangleShape2D_a8g5d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
