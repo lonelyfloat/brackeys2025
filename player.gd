@@ -5,11 +5,8 @@ var speed_nerft = 1
 
 func _physics_process(delta: float) -> void:
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var horz_direction := Input.get_axis("ui_left", "ui_right")
 	var vert_direction := Input.get_axis("ui_up", "ui_down")
-	
 	
 	if horz_direction || vert_direction:
 		if abs(horz_direction) > .5 && abs(vert_direction) > .5:
@@ -22,5 +19,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.y = move_toward(velocity.y, 0, speed)
 		
-
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		#var collider = collision.get_collider()
+		#var angle = atan2(collider.position.x - position.x, collider.position.y - position.y)
+		
+		
 	move_and_slide()

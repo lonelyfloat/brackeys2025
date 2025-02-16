@@ -1,9 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnvr3n3hnfhbh"]
+[gd_scene load_steps=5 format=3 uid="uid://bnvr3n3hnfhbh"]
 
 [ext_resource type="PackedScene" uid="uid://b82xyl2dqnwky" path="res://Player.tscn" id="1_8ur0g"]
 [ext_resource type="Script" path="res://cam.gd" id="1_w56vn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4wm46"]
+size = Vector2(159, 156)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6xsw3"]
+width = 158
+height = 152
 
 [node name="BasicTestScene" type="Node2D"]
 
@@ -11,8 +16,14 @@
 script = ExtResource("1_w56vn")
 
 [node name="Player" parent="." instance=ExtResource("1_8ur0g")]
+speed = null
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-440, 52)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_4wm46")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = SubResource("NoiseTexture2D_6xsw3")
