@@ -177,17 +177,17 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0ciey")
 }],
-"loop": true,
+"loop": false,
 "name": &"knockedL",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0vnig")
 }],
-"loop": true,
+"loop": false,
 "name": &"knockedR",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -269,7 +269,7 @@ script = ExtResource("1_xki20")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_326wc")
-animation = &"idleB"
+animation = &"knockedR"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1jg3a")

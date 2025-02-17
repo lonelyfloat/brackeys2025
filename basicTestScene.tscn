@@ -30,7 +30,6 @@ texture = SubResource("NoiseTexture2D_6xsw3")
 [node name="GenericCrowdNPC" parent="." instance=ExtResource("2_h48vl")]
 position = Vector2(324, -93)
 path = Array[Vector2]([Vector2(200, 0), Vector2(400, 100), Vector2(0, 50)])
-speed = 200
 viewConeAngle = 27.215
 texture = ExtResource("3_nmpvq")
 
