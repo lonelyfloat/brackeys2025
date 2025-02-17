@@ -15,6 +15,11 @@ run/main_scene="res://basicTestScene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[global_group]
+
+Player="is the player"
+NPCs="Non-player characters"
+
 [input]
 
 ui_left={
