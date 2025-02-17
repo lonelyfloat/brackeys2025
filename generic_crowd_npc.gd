@@ -22,8 +22,7 @@ var moving_path_forward := true
 var move_dir := Vector2.ZERO
 var ray_length: float
 
-signal suspicion_raised(amount)
-var personal_suspicion := 0
+signal suspicion_raised(amount: float)
 
 func _draw():
     if Engine.is_editor_hint():
@@ -46,16 +45,14 @@ func _ready() -> void:
     ray_length = ray.target_position.y
     sprite.texture = texture
 
-func scan_ray() -> void: 
-    personal_suspicion = 0
+func scan_ray(delta: float) -> void: 
     var view_angle = atan2(move_dir.y, move_dir.x)
     for i in range(int(floor(-viewConeAngle)), int(floor(viewConeAngle))):
         ray.target_position = ray_length * Vector2(cos(view_angle + deg_to_rad(i*1.0)),sin(view_angle + deg_to_rad(i*1.0))) 
         var object = ray.get_collider()
         if object != null && object.is_in_group("Player"):
             if object.suspicion_level > 0: 
-                personal_suspicion += object.suspicion_level
-                suspicion_raised.emit(object.suspicion_level)
+                suspicion_raised.emit(object.suspicion_level * delta)
             break;
 
 
@@ -75,11 +72,11 @@ func move_along_path() -> void:
         else:
             current_path_idx -= 1
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
     if not Engine.is_editor_hint():
         move_along_path()
         move_dir = velocity.normalized()
-        scan_ray()
+        scan_ray(delta)
         queue_redraw()
         move_and_slide()
 

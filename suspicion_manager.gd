@@ -1,7 +1,7 @@
 extends Node2D
 
 var npcs: Array[Node]
-var suspicion_level := 0
+var suspicion_level := 0.0
 
 func _ready(): 
     npcs = get_tree().get_nodes_in_group("NPCs")

@@ -4,7 +4,7 @@ extends CharacterBody2D
 var speed_nerft = 1
 var bounce = false
 var vel
-var suspicion_level := 0
+var suspicion_level := 0.0
 
 func _physics_process(delta: float) -> void:
 
