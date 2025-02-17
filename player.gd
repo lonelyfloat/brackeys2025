@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var speed = 300
 var speed_nerft = 1
 var bounce = false
+var bouncing = false
 var vel
 var suspicion_level := 0.0
 
@@ -11,7 +12,7 @@ func _physics_process(delta: float) -> void:
 	var horz_direction := Input.get_axis("ui_left", "ui_right")
 	var vert_direction := Input.get_axis("ui_up", "ui_down")
 	
-	if (horz_direction || vert_direction) && !bounce:
+	if (horz_direction || vert_direction) && !bouncing:
 		if abs(horz_direction) > .5 && abs(vert_direction) > .5:
 			speed_nerft = 0.66
 		else:
@@ -23,17 +24,20 @@ func _physics_process(delta: float) -> void:
 		velocity.y = move_toward(velocity.y, 0, speed/30.)
 		
 	if bounce:
-		velocity += vel;
+		velocity = vel
+		bounce = false
+
 		
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		if fmod(collision.get_angle(),PI) > 0.77:
-			vel = Vector2(velocity.x * -2,velocity.y)
+			vel = Vector2(velocity.x * -1,velocity.y)
 		else:
-			vel = Vector2(velocity.x,velocity.y * -2)
+			vel = Vector2(velocity.x,velocity.y * -1)
 		bounce = true
-		bounce_time(1)
-		
+		bouncing = true
+		bounce_time(0.33)
+
 func bounce_time(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
-	bounce = false
+	bouncing = false

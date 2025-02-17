@@ -258,8 +258,9 @@ animations = [{
 "speed": 6.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2biwl"]
-size = Vector2(81, 148)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1jg3a"]
+radius = 24.5
+height = 140.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 motion_mode = 1
@@ -268,11 +269,10 @@ script = ExtResource("1_xki20")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_326wc")
-animation = &"knockedR"
+animation = &"idleB"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.5, 1)
-shape = SubResource("RectangleShape2D_2biwl")
+shape = SubResource("CapsuleShape2D_1jg3a")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0

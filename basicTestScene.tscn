@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b82xyl2dqnwky" path="res://Player.tscn" id="1_8ur0g"]
 [ext_resource type="PackedScene" uid="uid://b4dbq86g112nn" path="res://generic_crowd_npc.tscn" id="2_h48vl"]
 [ext_resource type="Texture2D" uid="uid://bs80vumhyddtt" path="res://icon.svg" id="3_nmpvq"]
-[ext_resource type="PackedScene" uid="uid://x1ml0delfs2" path="res://suspicion_manager.tscn" id="4_54eyk"]
+[ext_resource type="PackedScene" path="res://suspicion_manager.tscn" id="4_54eyk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4wm46"]
 size = Vector2(159, 156)
@@ -28,9 +28,10 @@ shape = SubResource("RectangleShape2D_4wm46")
 texture = SubResource("NoiseTexture2D_6xsw3")
 
 [node name="GenericCrowdNPC" parent="." instance=ExtResource("2_h48vl")]
-position = Vector2(322, -178)
+position = Vector2(324, -93)
 path = Array[Vector2]([Vector2(200, 0), Vector2(400, 100), Vector2(0, 50)])
 speed = 200
+viewConeAngle = 27.215
 texture = ExtResource("3_nmpvq")
 
 [node name="SuspicionManager" parent="." instance=ExtResource("4_54eyk")]
