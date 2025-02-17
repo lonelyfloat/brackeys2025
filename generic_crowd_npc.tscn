@@ -8,7 +8,6 @@ size = Vector2(67, 112)
 [node name="GenericCrowdNPC" type="CharacterBody2D" groups=["NPCs"]]
 motion_mode = 1
 script = ExtResource("1_qfsqu")
-speed = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_a8g5d")
