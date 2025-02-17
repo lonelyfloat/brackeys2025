@@ -3,7 +3,8 @@ extends CharacterBody2D
 
 
 @export var path: Array[Vector2]
-@export var speed: float
+@export var speed := 200
+@export var viewConeAngle := 30.0
 
 
 @export var texture: Texture2D:
@@ -13,18 +14,50 @@ extends CharacterBody2D
             sprite.texture = texture
 
 @onready var sprite := get_node("Sprite2D")
+@onready var ray := get_node("RayCast2D")
 
 var current_path_idx := 0
 var acceptable_pt_diff := 15 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
 var moving_path_forward := true
+var move_dir := Vector2.ZERO
+var ray_length: float
+
+signal suspicion_raised(amount)
+var personal_suspicion := 0
 
 func _draw():
-    if Engine.is_editor_hint() && path.size() > 1:
-        for i in range(0, path.size() - 1):
-            draw_line(path[i] - global_position, path[i+1] - global_position, Color(1,1,1,1))
+    if Engine.is_editor_hint():
+        if path.size() > 1:
+            for i in range(0, path.size() - 1):
+                draw_line(path[i] - global_position, path[i+1] - global_position, Color(1,1,1,1))
+        ray_length = ray.target_position.y
+        draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(-viewConeAngle)), sin(deg_to_rad(-viewConeAngle))), Color(0,1,0,1))
+        draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(viewConeAngle)), sin(deg_to_rad(viewConeAngle))), Color(0,1,0,1))
+    else:
+        var view_angle = atan2(move_dir.y, move_dir.x)
+        for i in range(int(floor(-viewConeAngle)), int(floor(viewConeAngle))):
+            ray.target_position = ray_length * Vector2(cos(view_angle + deg_to_rad(i*1.0)),sin(view_angle + deg_to_rad(i*1.0))) 
+            draw_line(Vector2.ZERO, ray.target_position, Color(0,1,0,1))
+        draw_line(Vector2.ZERO, ray_length * Vector2(cos(view_angle + deg_to_rad(-viewConeAngle)), sin(view_angle + deg_to_rad(-viewConeAngle))), Color(0,1,0,1))
+        draw_line(Vector2.ZERO, ray_length * Vector2(cos(view_angle + deg_to_rad(viewConeAngle)), sin(view_angle + deg_to_rad(viewConeAngle))), Color(0,1,0,1))
+
 
 func _ready() -> void:
+    ray_length = ray.target_position.y
     sprite.texture = texture
+
+func scan_ray() -> void: 
+    personal_suspicion = 0
+    var view_angle = atan2(move_dir.y, move_dir.x)
+    for i in range(int(floor(-viewConeAngle)), int(floor(viewConeAngle))):
+        ray.target_position = ray_length * Vector2(cos(view_angle + deg_to_rad(i*1.0)),sin(view_angle + deg_to_rad(i*1.0))) 
+        var object = ray.get_collider()
+        if object != null && object.is_in_group("Player"):
+            if object.suspicion_level > 0: 
+                personal_suspicion += object.suspicion_level
+                suspicion_raised.emit(object.suspicion_level)
+            break;
+
 
 func move_along_path() -> void:
     if path.size() == 0:
@@ -45,6 +78,9 @@ func move_along_path() -> void:
 func _physics_process(_delta: float) -> void:
     if not Engine.is_editor_hint():
         move_along_path()
+        move_dir = velocity.normalized()
+        scan_ray()
+        queue_redraw()
         move_and_slide()
 
 func _notification(what: int) -> void: 

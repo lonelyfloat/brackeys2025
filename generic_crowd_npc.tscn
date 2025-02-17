@@ -5,11 +5,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8g5d"]
 size = Vector2(67, 112)
 
-[node name="GenericCrowdNPC" type="CharacterBody2D"]
+[node name="GenericCrowdNPC" type="CharacterBody2D" groups=["NPCs"]]
 motion_mode = 1
 script = ExtResource("1_qfsqu")
+speed = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_a8g5d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 300)

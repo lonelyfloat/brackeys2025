@@ -4,6 +4,7 @@ extends CharacterBody2D
 var speed_nerft = 1
 var bounce = false
 var vel
+var suspicion_level := 0
 
 func _physics_process(delta: float) -> void:
 
@@ -18,8 +19,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y = vert_direction * speed * speed_nerft
 		velocity.x = horz_direction * speed * speed_nerft
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed/30)
-		velocity.y = move_toward(velocity.y, 0, speed/30)
+		velocity.x = move_toward(velocity.x, 0, speed/30.)
+		velocity.y = move_toward(velocity.y, 0, speed/30.)
 		
 	if bounce:
 		velocity += vel;
