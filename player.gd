@@ -16,9 +16,6 @@ var y_dir := 0
 
 
 func _physics_process(delta: float) -> void:
-	print(animPlaying)
-	print(sprite.animation)
-
 	var horz_direction := Input.get_axis("ui_left", "ui_right")
 	var vert_direction := Input.get_axis("ui_up", "ui_down")
 	
