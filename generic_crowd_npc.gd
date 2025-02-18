@@ -4,7 +4,9 @@ extends CharacterBody2D
 
 @export var path: Array[Vector2]
 @export var speed := 200
+@export var light_texture_scale := 5
 @export var view_cone_angle := 30.0
+@export var ray_length := 300.0
 
 
 @export var texture: Texture2D:
@@ -22,7 +24,6 @@ var current_path_idx := 0
 var acceptable_pt_diff := 15 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
 var moving_path_forward := true
 var move_dir := Vector2.ZERO
-var ray_length: float
 
 signal suspicion_raised(amount: float)
 
@@ -31,14 +32,14 @@ func _draw():
         if path.size() > 1:
             for i in range(0, path.size() - 1):
                 draw_line(path[i] - global_position, path[i+1] - global_position, Color(1,1,1,1))
-        ray_length = ray.target_position.y
         draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(-view_cone_angle)), sin(deg_to_rad(-view_cone_angle))), Color(0,1,0,1))
         draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(view_cone_angle)), sin(deg_to_rad(view_cone_angle))), Color(0,1,0,1))
 
 
 func config_light_texture() ->void: 
+    light.texture_scale = light_texture_scale
     var angle = view_cone_angle
-    var tex_size = ray_length/5
+    var tex_size = ray_length/light_texture_scale
     var ltex = load("light_texture.tres")
     var half = ltex.duplicate()
     var w = int(tex_size * cos(deg_to_rad(angle)))
@@ -54,9 +55,10 @@ func config_light_texture() ->void:
     wholeimg.blit_rect(flipped, Rect2i(0, 0, w, halfh), Vector2i(0,halfh))
     var itex := ImageTexture.create_from_image(wholeimg)
     light.texture = itex
+    light.position.x = light.texture.get_width() * light_texture_scale / 2.0
 
 func _ready() -> void:
-    ray_length = ray.target_position.y
+    ray.target_position = Vector2(0, ray_length)
     sprite.texture = texture
     config_light_texture()
 
@@ -91,7 +93,7 @@ func _physics_process(delta: float) -> void:
     if not Engine.is_editor_hint():
         move_along_path()
         move_dir = velocity.normalized()
-        lightPivot.rotation = atan2(move_dir.y, move_dir.x)
+        lightPivot.rotation = lerp(lightPivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
         scan_ray(delta)
         queue_redraw()
         move_and_slide()
@@ -99,5 +101,4 @@ func _physics_process(delta: float) -> void:
 func _notification(what: int) -> void: 
     if what == NOTIFICATION_EDITOR_POST_SAVE:
         queue_redraw()
-        ray_length = ray.target_position.y
         config_light_texture()
