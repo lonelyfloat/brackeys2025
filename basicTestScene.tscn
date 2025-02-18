@@ -1,9 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://daurrc68lmhxg"]
+[gd_scene load_steps=9 format=3 uid="uid://daurrc68lmhxg"]
 
 [ext_resource type="PackedScene" uid="uid://b82xyl2dqnwky" path="res://Player.tscn" id="1_8ur0g"]
 [ext_resource type="PackedScene" uid="uid://b4dbq86g112nn" path="res://generic_crowd_npc.tscn" id="2_h48vl"]
 [ext_resource type="Texture2D" uid="uid://bs80vumhyddtt" path="res://icon.svg" id="3_nmpvq"]
 [ext_resource type="PackedScene" uid="uid://x1ml0delfs2" path="res://suspicion_manager.tscn" id="4_54eyk"]
+
+[sub_resource type="Gradient" id="Gradient_ya5yq"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.273873, 0.273873, 0.273873, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sfw7h"]
+gradient = SubResource("Gradient_ya5yq")
+repeat = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4wm46"]
 size = Vector2(159, 156)
@@ -13,6 +21,12 @@ width = 158
 height = 152
 
 [node name="BasicTestScene" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -5
+position = Vector2(15, -73.5)
+scale = Vector2(22.4297, 12.5781)
+texture = SubResource("GradientTexture2D_sfw7h")
 
 [node name="Player" parent="." instance=ExtResource("1_8ur0g")]
 position = Vector2(41, -82)
@@ -30,7 +44,6 @@ texture = SubResource("NoiseTexture2D_6xsw3")
 [node name="GenericCrowdNPC" parent="." instance=ExtResource("2_h48vl")]
 position = Vector2(322, -178)
 path = Array[Vector2]([Vector2(200, 0), Vector2(400, 100), Vector2(0, 50)])
-speed = 200
 texture = ExtResource("3_nmpvq")
 
 [node name="SuspicionManager" parent="." instance=ExtResource("4_54eyk")]
