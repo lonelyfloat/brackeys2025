@@ -89,6 +89,7 @@ func runAnims(input_vector) -> void:
 		return
 
 	if input_vector.x != 0 || y_dir == 0:
+		y_dir = 0
 		if(get_local_mouse_position().x > 0):
 			x_dir = 1                       
 		elif(get_local_mouse_position().x < 0):
