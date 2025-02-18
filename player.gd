@@ -43,7 +43,6 @@ func _physics_process(delta: float) -> void:
 			armR.visible = false
 			armL.visible = true
 
-
 	if(input_vector != Vector2.ZERO && !bouncing):
 		if velocity.length() >= speed:
 			velocity = input_vector.normalized() * velocity.length()
@@ -77,7 +76,6 @@ func _physics_process(delta: float) -> void:
 		bounce = true
 		bouncing = true
 		bounce_time(0.33)
-	
 
 func bounce_time(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
