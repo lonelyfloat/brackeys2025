@@ -67,17 +67,21 @@ func bounce_time(seconds: float) -> void:
 	animPlaying = false
 	
 func runAnims(input_vector) -> void:
-	if(get_local_mouse_position().x > 0 && input_vector.y == 0):
-		x_dir = 1
-	if(get_local_mouse_position().x < 0 && input_vector.y == 0):
-		x_dir = -1
-	if(abs(input_vector.x) >= abs(input_vector.y)) && !animPlaying:
+	if animPlaying:
+		return
+
+	if input_vector.x != 0 || y_dir == 0:
+		if(get_local_mouse_position().x > 0):
+			x_dir = 1                       
+		elif(get_local_mouse_position().x < 0):
+			x_dir = -1
+	
+
+	if(abs(input_vector.x) >= abs(input_vector.y)):
 		if(get_local_mouse_position().x > 0 && input_vector.x != 0):
 			sprite.play("moveR")
-			x_dir = 1
 		elif(get_local_mouse_position().x < 0 && input_vector.x != 0):
 			sprite.play("moveL")
-			x_dir = -1
 		elif(x_dir > 0):
 			sprite.play("idleR")
 		elif(x_dir < 0):
@@ -88,7 +92,7 @@ func runAnims(input_vector) -> void:
 			sprite.play("idleF")
 		else:
 			sprite.play("idleF")
-	elif (!animPlaying):
+	else:
 		x_dir = 0
 		if(input_vector.y > 0):
 			sprite.play("moveF")
