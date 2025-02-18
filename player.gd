@@ -22,42 +22,8 @@ var friction = normal_friction
 
 func _physics_process(delta: float) -> void:
 	var input_vector = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
-	
-	#ignore this atrocius code until the performance becomes a problem
 
-
-
-
-	if(get_local_mouse_position().x > 0 && input_vector.y == 0):
-		x_dir = 1
-	if(get_local_mouse_position().x < 0 && input_vector.y == 0):
-		x_dir = -1
-	if(abs(input_vector.x) >= abs(input_vector.y)) && !animPlaying:
-		if(get_local_mouse_position().x > 0 && input_vector.x != 0):
-			sprite.play("moveR")
-			x_dir = 1
-		elif(get_local_mouse_position().x < 0 && input_vector.x != 0):
-			sprite.play("moveL")
-			x_dir = -1
-		elif(x_dir > 0):
-			sprite.play("idleR")
-		elif(x_dir < 0):
-			sprite.play("idleL")
-		elif(y_dir > 0):
-			sprite.play("idleB")
-		elif(y_dir < 0):
-			sprite.play("idleF")
-		else:
-			sprite.play("idleF")
-	elif (!animPlaying):
-		x_dir = 0
-		if(input_vector.y > 0):
-			sprite.play("moveF")
-			y_dir = -1
-		elif(input_vector.y < 0):
-			sprite.play("moveB")
-			y_dir = 1
-	
+	runAnims(input_vector)
 
 
 	if(input_vector != Vector2.ZERO && !bouncing):
@@ -99,3 +65,34 @@ func bounce_time(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
 	bouncing = false
 	animPlaying = false
+	
+func runAnims(input_vector) -> void:
+	if(get_local_mouse_position().x > 0 && input_vector.y == 0):
+		x_dir = 1
+	if(get_local_mouse_position().x < 0 && input_vector.y == 0):
+		x_dir = -1
+	if(abs(input_vector.x) >= abs(input_vector.y)) && !animPlaying:
+		if(get_local_mouse_position().x > 0 && input_vector.x != 0):
+			sprite.play("moveR")
+			x_dir = 1
+		elif(get_local_mouse_position().x < 0 && input_vector.x != 0):
+			sprite.play("moveL")
+			x_dir = -1
+		elif(x_dir > 0):
+			sprite.play("idleR")
+		elif(x_dir < 0):
+			sprite.play("idleL")
+		elif(y_dir > 0):
+			sprite.play("idleB")
+		elif(y_dir < 0):
+			sprite.play("idleF")
+		else:
+			sprite.play("idleF")
+	elif (!animPlaying):
+		x_dir = 0
+		if(input_vector.y > 0):
+			sprite.play("moveF")
+			y_dir = -1
+		elif(input_vector.y < 0):
+			sprite.play("moveB")
+			y_dir = 1

@@ -5,8 +5,7 @@ extends Node2D
 
 func _process(delta: float) -> void:
 	if get_global_mouse_position().x > me.position.x:
-		sniber.flip_v = false
+		sniber.scale.y = 0.13
 	else:
-		sniber.flip_v = true
-		
+		sniber.scale.y = -0.13
 	look_at(get_global_mouse_position())

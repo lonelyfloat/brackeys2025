@@ -263,10 +263,6 @@ animations = [{
 "speed": 6.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1jg3a"]
-radius = 24.5
-height = 140.0
-
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_2fhim"]
 target_nodepath = NodePath("../../SniberAnchor/handTargetR")
 flip_bend_direction = true
@@ -280,6 +276,10 @@ enabled = true
 modification_count = 1
 modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_2fhim")
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1jg3a"]
+radius = 24.5
+height = 140.0
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 motion_mode = 1
 script = ExtResource("1_xki20")
@@ -289,31 +289,22 @@ scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_326wc")
 animation = &"idleF"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_1jg3a")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-process_callback = 0
-position_smoothing_enabled = true
-position_smoothing_speed = 3.0
-
 [node name="SniberAnchor" type="Node2D" parent="."]
-position = Vector2(0, -32)
+position = Vector2(0, -21)
 script = ExtResource("3_3my5u")
 
 [node name="handTargetR" type="Node2D" parent="SniberAnchor"]
-position = Vector2(27.2, 15.27)
+position = Vector2(29, 1)
 scale = Vector2(0.15, 0.15)
 
 [node name="Sniber" type="Sprite2D" parent="SniberAnchor"]
 z_index = 2
-position = Vector2(123.2, -0.729996)
-scale = Vector2(0.13, 0.124)
+position = Vector2(27, -9.53674e-07)
+scale = Vector2(0.13, 0.13)
 texture = ExtResource("3_npura")
+offset = Vector2(740, -126.855)
 
 [node name="armR" type="Node2D" parent="."]
-z_index = 4
-position = Vector2(-20, -21)
 scale = Vector2(0.15, 0.15)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="armR"]
@@ -321,9 +312,9 @@ position = Vector2(1, 0)
 modification_stack = SubResource("SkeletonModificationStack2D_7wpnc")
 
 [node name="UpperArm" type="Bone2D" parent="armR/Skeleton2D"]
-position = Vector2(-29, -26)
-rotation = 0.108149
-scale = Vector2(0.999974, 0.999974)
+position = Vector2(-175, -175)
+rotation = -0.296137
+scale = Vector2(0.999966, 0.999966)
 rest = Transform2D(0.994132, 0.107936, -0.107936, 0.994132, -29, -26)
 metadata/_local_pose_override_enabled_ = true
 
@@ -346,9 +337,9 @@ remote_path = NodePath("../../../../ArmBottomFill")
 
 [node name="ArmTopFill" type="Sprite2D" parent="armR"]
 z_index = 1
-position = Vector2(-28, -26)
-rotation = -0.311942
-scale = Vector2(0.999974, 0.999974)
+position = Vector2(-174, -175)
+rotation = -0.440171
+scale = Vector2(0.999966, 0.999966)
 texture = ExtResource("7_f2mqu")
 offset = Vector2(26.6666, 280)
 
@@ -360,9 +351,9 @@ offset = Vector2(-0.333359, -5)
 
 [node name="ArmBottomFill" type="Sprite2D" parent="armR"]
 z_index = 1
-position = Vector2(44.6144, 179.632)
-rotation = -1.97534
-scale = Vector2(0.999901, 0.999901)
+position = Vector2(-75.6868, 19.6568)
+rotation = -1.98211
+scale = Vector2(0.999893, 0.999893)
 texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
 
@@ -370,3 +361,11 @@ offset = Vector2(20, 40)
 z_index = -1
 position = Vector2(20, 40)
 texture = ExtResource("6_h0onb")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1jg3a")
