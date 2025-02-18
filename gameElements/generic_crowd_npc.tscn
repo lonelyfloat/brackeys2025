@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b4dbq86g112nn"]
 
-[ext_resource type="Script" path="res://generic_crowd_npc.gd" id="1_qfsqu"]
+[ext_resource type="Script" path="res://gameElements/elemntScripts/generic_crowd_npc.gd" id="1_qfsqu"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g2s0s"]
 polygon = PackedVector2Array(-34, 56, -34, -56, 33, -56, 33, 56)

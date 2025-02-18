@@ -82,6 +82,12 @@ func bounce_time(seconds: float) -> void:
 	bouncing = false
 	animPlaying = false
 	
+func recoil(speed, damage, rot) -> void:
+		vel = Vector2(-damage*speed/1000 * cos(rot),-damage*speed/1000 * sin(rot))
+		bounce = true
+		bouncing = true
+		bounce_time(0.33)
+	
 func runAnims(input_vector) -> void:
 	if animPlaying:
 		return

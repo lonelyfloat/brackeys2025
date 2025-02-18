@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://2a0vxfn0llu7"]
+
+[ext_resource type="Texture2D" uid="uid://dg4sgrsargj2v" path="res://playerArt/bullet.png" id="1_dhxbi"]
+[ext_resource type="Script" path="res://gameElements/elemntScripts/fired_bullet.gd" id="1_uqq3c"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_63sra"]
+friction = 0.5
+bounce = 2.0
+
+[sub_resource type="Curve" id="Curve_6jge5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.74613, 1), 0.0, 0.0, 0, 0, Vector2(0.916409, 0.497546), -4.78413, -4.78413, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7b2s3"]
+radius = 8.0
+height = 22.0
+
+[node name="FiredBullet" type="RigidBody2D" groups=["DamageBody"]]
+physics_material_override = SubResource("PhysicsMaterial_63sra")
+gravity_scale = 0.0
+script = ExtResource("1_uqq3c")
+fade_curve = SubResource("Curve_6jge5")
+
+[node name="Bullet" type="Sprite2D" parent="."]
+position = Vector2(1, 1.5)
+rotation = 1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_dhxbi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7b2s3")
+
+[node name="Timer" type="Timer" parent="."]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=43 format=3 uid="uid://b82xyl2dqnwky"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_xki20"]
+[ext_resource type="Script" path="res://gameElements/elemntScripts/player.gd" id="1_xki20"]
 [ext_resource type="Texture2D" uid="uid://d2sjfw4jj2jjt" path="res://playerArt/Spritesheet.png" id="2_sbp8o"]
-[ext_resource type="Script" path="res://sniber.gd" id="3_3my5u"]
+[ext_resource type="Script" path="res://gameElements/elemntScripts/sniber.gd" id="3_3my5u"]
 [ext_resource type="Texture2D" uid="uid://ddvp0cxohsmto" path="res://playerArt/sniber.png" id="3_npura"]
 [ext_resource type="Texture2D" uid="uid://dbd6w1c4rb3mc" path="res://playerArt/armBottomFill.png" id="5_q1ls1"]
 [ext_resource type="Texture2D" uid="uid://bwxn12sct6yha" path="res://playerArt/armBottomShadow.png" id="6_h0onb"]
@@ -304,6 +304,10 @@ animation = &"idleF"
 [node name="SniberAnchor" type="Node2D" parent="."]
 position = Vector2(0, -21)
 script = ExtResource("3_3my5u")
+damage = 300.0
+muzzle_velocity = 50.0
+clip_size = 40
+fire_rate = 0.001
 
 [node name="handTargetR" type="Node2D" parent="SniberAnchor"]
 position = Vector2(29, 1)
@@ -315,6 +319,10 @@ position = Vector2(27, -9.53674e-07)
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("3_npura")
 offset = Vector2(740, -126.855)
+
+[node name="bulletSpawnTarget" type="Node2D" parent="SniberAnchor/Sniber"]
+position = Vector2(1800, -115)
+scale = Vector2(7.69231, 7.69231)
 
 [node name="armR" type="Node2D" parent="."]
 z_index = 4
