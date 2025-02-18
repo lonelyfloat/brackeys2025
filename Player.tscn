@@ -361,7 +361,7 @@ offset = Vector2(-0.333359, -5)
 [node name="ArmBottomFill" type="Sprite2D" parent="armR"]
 z_index = 1
 position = Vector2(44.6144, 179.632)
-rotation = -1.97533
+rotation = -1.97534
 scale = Vector2(0.999901, 0.999901)
 texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
