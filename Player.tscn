@@ -426,7 +426,7 @@ offset = Vector2(-0.333359, -5)
 z_index = 1
 position = Vector2(92.2394, -376.348)
 rotation = -0.288452
-scale = Vector2(0.99989, 0.99989)
+scale = Vector2(0.999893, 0.999893)
 texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
 

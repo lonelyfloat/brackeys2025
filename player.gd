@@ -43,14 +43,14 @@ func _physics_process(delta: float) -> void:
 			armR.visible = false
 			armL.visible = true
 
-	if velocity.y > -speed/1.2:
-		armR.z_index = 4
-		armL.z_index = 4
-		sniber.z_index = 1
-	else:
-		armR.z_index = -4
-		armL.z_index = -4
-		sniber.z_index = -1
+		if velocity.y > 0:
+			armR.z_index = 4
+			armL.z_index = 4
+			sniber.z_index = 1
+		else:
+			armR.z_index = -4
+			armL.z_index = -4
+			sniber.z_index = -1
 
 	if(input_vector != Vector2.ZERO && !bouncing):
 		if velocity.length() >= speed:
