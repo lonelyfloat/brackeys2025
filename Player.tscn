@@ -345,8 +345,8 @@ remote_path = NodePath("../../../../ArmBottomFill")
 [node name="ArmTopFill" type="Sprite2D" parent="armR"]
 z_index = 1
 position = Vector2(-28, -26)
-rotation = -0.337993
-scale = Vector2(0.999963, 0.999963)
+rotation = -0.33796
+scale = Vector2(0.999974, 0.999974)
 texture = ExtResource("7_f2mqu")
 offset = Vector2(26.6666, 280)
 
@@ -358,9 +358,9 @@ offset = Vector2(-0.333359, -5)
 
 [node name="ArmBottomFill" type="Sprite2D" parent="armR"]
 z_index = 1
-position = Vector2(49.9451, 177.669)
-rotation = -1.91958
-scale = Vector2(0.99988, 0.99988)
+position = Vector2(49.9394, 177.674)
+rotation = -1.91955
+scale = Vector2(0.999901, 0.999901)
 texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
 
