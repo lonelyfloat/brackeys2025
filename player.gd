@@ -43,14 +43,6 @@ func _physics_process(delta: float) -> void:
 			armR.visible = false
 			armL.visible = true
 
-		if velocity.y > 0:
-			armR.z_index = 4
-			armL.z_index = 4
-			sniber.z_index = 1
-		else:
-			armR.z_index = -4
-			armL.z_index = -4
-			sniber.z_index = -1
 
 	if(input_vector != Vector2.ZERO && !bouncing):
 		if velocity.length() >= speed:
@@ -104,6 +96,9 @@ func runAnims(input_vector) -> void:
 	
 
 	if(abs(input_vector.x) >= abs(input_vector.y)):
+		armR.z_index = 4
+		armL.z_index = 4
+		sniber.z_index = 1
 		if(get_local_mouse_position().x > 0 && input_vector.x != 0):
 			sprite.play("moveR")
 		elif(get_local_mouse_position().x < 0 && input_vector.x != 0):
@@ -114,6 +109,9 @@ func runAnims(input_vector) -> void:
 			sprite.play("idleL")
 		elif(y_dir > 0):
 			sprite.play("idleB")
+			armR.z_index = -4
+			armL.z_index = -4
+			sniber.z_index = -1
 		elif(y_dir < 0):
 			sprite.play("idleF")
 		else:
@@ -123,6 +121,12 @@ func runAnims(input_vector) -> void:
 		if(input_vector.y > 0):
 			sprite.play("moveF")
 			y_dir = -1
+			armR.z_index = 4
+			armL.z_index = 4
+			sniber.z_index = 1
 		elif(input_vector.y < 0):
 			sprite.play("moveB")
 			y_dir = 1
+			armR.z_index = -4
+			armL.z_index = -4
+			sniber.z_index = -1
