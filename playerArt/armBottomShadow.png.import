@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsvn44hrrfjb0"
-path="res://.godot/imported/sniber.png-feeacfe38a4ab95bb44ce354af0761bf.ctex"
+uid="uid://bwxn12sct6yha"
+path="res://.godot/imported/armBottomShadow.png-92ee079477fbe90d3db517db6251a270.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sniber.png"
-dest_files=["res://.godot/imported/sniber.png-feeacfe38a4ab95bb44ce354af0761bf.ctex"]
+source_file="res://playerArt/armBottomShadow.png"
+dest_files=["res://.godot/imported/armBottomShadow.png-92ee079477fbe90d3db517db6251a270.ctex"]
 
 [params]
 

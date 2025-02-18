@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1l118pwu5ui6"
-path="res://.godot/imported/badAssasin.png-b6358dfde50f27745447850ffe553105.ctex"
+uid="uid://cwrwaqosa7mev"
+path="res://.godot/imported/armTopFill.png-9825ef6f1eed3760fed8a65269e5ca3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://badAssasin.png"
-dest_files=["res://.godot/imported/badAssasin.png-b6358dfde50f27745447850ffe553105.ctex"]
+source_file="res://playerArt/armTopFill.png"
+dest_files=["res://.godot/imported/armTopFill.png-9825ef6f1eed3760fed8a65269e5ca3c.ctex"]
 
 [params]
 
