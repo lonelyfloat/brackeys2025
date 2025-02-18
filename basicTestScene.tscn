@@ -30,6 +30,8 @@ texture = SubResource("GradientTexture2D_sfw7h")
 
 [node name="Player" parent="." instance=ExtResource("1_8ur0g")]
 position = Vector2(41, -82)
+bounce_power = 2
+terminal_velocity = 600
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(-440, 52)
