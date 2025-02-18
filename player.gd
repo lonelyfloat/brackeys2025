@@ -6,6 +6,11 @@ extends CharacterBody2D
 
 @onready var sprite := $AnimatedSprite2D
 
+@onready var armR := $armR
+@onready var armL := $armL
+@onready var sniber := $SniberAnchor/Sniber
+
+
 var bounce := false
 var bouncing := false
 var vel
@@ -22,9 +27,30 @@ var friction = normal_friction
 
 func _physics_process(delta: float) -> void:
 	var input_vector = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
-
 	runAnims(input_vector)
+	
+	if x_dir > 0:
+		armR.visible = true
+		armL.visible = false
+	elif x_dir < 0:
+		armR.visible = false
+		armL.visible = true
+	else:
+		if get_global_mouse_position().x > position.x:
+			armR.visible = true
+			armL.visible = false
+		else:
+			armR.visible = false
+			armL.visible = true
 
+	if velocity.y > -speed/1.2:
+		armR.z_index = 4
+		armL.z_index = 4
+		sniber.z_index = 1
+	else:
+		armR.z_index = -4
+		armL.z_index = -4
+		sniber.z_index = -1
 
 	if(input_vector != Vector2.ZERO && !bouncing):
 		if velocity.length() >= speed:
