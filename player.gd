@@ -24,11 +24,19 @@ func _physics_process(delta: float) -> void:
 	var input_vector = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
 	
 	#ignore this atrocius code until the performance becomes a problem
+
+
+
+
+	if(get_local_mouse_position().x > 0 && input_vector.y == 0):
+		x_dir = 1
+	if(get_local_mouse_position().x < 0 && input_vector.y == 0):
+		x_dir = -1
 	if(abs(input_vector.x) >= abs(input_vector.y)) && !animPlaying:
-		if(input_vector.x > 0):
+		if(get_local_mouse_position().x > 0 && input_vector.x != 0):
 			sprite.play("moveR")
 			x_dir = 1
-		elif(input_vector.x < 0):
+		elif(get_local_mouse_position().x < 0 && input_vector.x != 0):
 			sprite.play("moveL")
 			x_dir = -1
 		elif(x_dir > 0):
