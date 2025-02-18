@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 300
 @export var bounce_power := 1
-@export var terminal_velocity := 500
+@export var terminal_velocity := 2000
 
 @onready var sprite := $AnimatedSprite2D
 
@@ -16,11 +16,12 @@ var animPlaying := false
 var x_dir := 0
 var y_dir := 0
 
-var acceleration := 70
-var friction := 0.9
+var acceleration := 150
+var normal_friction := 0.85
+var bounce_friction := 0.96
+var friction = normal_friction
 
 func _physics_process(delta: float) -> void:
-	velocity *= friction
 	var horz_direction := Input.get_axis("move_left", "move_right")
 	var vert_direction := Input.get_axis("move_up", "move_down")
 	var input_vector = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
@@ -54,10 +55,21 @@ func _physics_process(delta: float) -> void:
 			sprite.play("idleB")
 	
 
-	velocity += input_vector * acceleration
+
+	if(input_vector != Vector2.ZERO && !bouncing):
+		if velocity.length() >= speed:
+			velocity = input_vector.normalized() * velocity.length()
+		else:
+			velocity += input_vector * acceleration
+
+	if bouncing: 
+		friction = bounce_friction
+	else: 
+		friction = normal_friction
+		
 	if bounce:
 		animPlaying = true
-		velocity = vel
+		velocity = vel*bounce_power
 		bounce = false
 		if velocity.x < 0:
 			sprite.play("knockedL")
@@ -67,6 +79,8 @@ func _physics_process(delta: float) -> void:
 	if(velocity.length() > terminal_velocity):
 		velocity = terminal_velocity*velocity.normalized()
 	var collision = move_and_collide(velocity * delta)
+
+	velocity *= friction
 	if collision:
 		if fmod(collision.get_angle(),PI) > 0.77:
 			vel = Vector2(velocity.x * -1,velocity.y)
@@ -75,6 +89,7 @@ func _physics_process(delta: float) -> void:
 		bounce = true
 		bouncing = true
 		bounce_time(0.33)
+	
 
 func bounce_time(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
