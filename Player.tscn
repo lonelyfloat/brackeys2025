@@ -268,7 +268,7 @@ radius = 24.5
 height = 140.0
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_2fhim"]
-target_nodepath = NodePath("../../SniberAnchor/handTarget")
+target_nodepath = NodePath("../../SniberAnchor/handTargetR")
 flip_bend_direction = true
 joint_one_bone_idx = 0
 joint_one_bone2d_node = NodePath("UpperArm")
@@ -301,17 +301,19 @@ position_smoothing_speed = 3.0
 position = Vector2(0, -32)
 script = ExtResource("3_3my5u")
 
-[node name="handTarget" type="Node2D" parent="SniberAnchor"]
+[node name="handTargetR" type="Node2D" parent="SniberAnchor"]
 position = Vector2(27.2, 15.27)
 scale = Vector2(0.15, 0.15)
 
 [node name="Sniber" type="Sprite2D" parent="SniberAnchor"]
+z_index = 2
 position = Vector2(123.2, -0.729996)
 scale = Vector2(0.13, 0.124)
 texture = ExtResource("3_npura")
 
 [node name="armR" type="Node2D" parent="."]
-position = Vector2(-22, -23)
+z_index = 4
+position = Vector2(-20, -21)
 scale = Vector2(0.15, 0.15)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="armR"]
@@ -345,7 +347,7 @@ remote_path = NodePath("../../../../ArmBottomFill")
 [node name="ArmTopFill" type="Sprite2D" parent="armR"]
 z_index = 1
 position = Vector2(-28, -26)
-rotation = -0.33796
+rotation = -0.311942
 scale = Vector2(0.999974, 0.999974)
 texture = ExtResource("7_f2mqu")
 offset = Vector2(26.6666, 280)
@@ -358,8 +360,8 @@ offset = Vector2(-0.333359, -5)
 
 [node name="ArmBottomFill" type="Sprite2D" parent="armR"]
 z_index = 1
-position = Vector2(49.9394, 177.674)
-rotation = -1.91955
+position = Vector2(44.6144, 179.632)
+rotation = -1.97533
 scale = Vector2(0.999901, 0.999901)
 texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
