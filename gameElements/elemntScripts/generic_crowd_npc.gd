@@ -22,7 +22,7 @@ extends CharacterBody2D
 @onready var knocked_timer := get_node("KnockedTimer")
 
 var current_path_idx := 0
-var acceptable_pt_diff := 15 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
+var acceptable_pt_diff := 5 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
 var moving_path_forward := true
 var move_dir := Vector2.ZERO
 
@@ -33,6 +33,8 @@ var personal_suspicion := 0.0
 var x_dir := 0
 var y_dir := 0
 var animPlaying := false
+
+var initial_position
 
 var knocked := false
 
@@ -71,9 +73,10 @@ func config_light_texture() ->void:
 	light_pivot.rotation = deg_to_rad(initial_rotation)
 
 func _ready() -> void:
-	ray.target_position = Vector2(0, ray_length)
-	sprite.modulate = color
-	config_light_texture()
+    initial_position = position
+    ray.target_position = Vector2(0, ray_length)
+    sprite.modulate = color
+    config_light_texture()
 
 func scan_ray(delta: float) -> void: 
 	var view_angle = atan2(move_dir.y, move_dir.x)
@@ -87,57 +90,61 @@ func scan_ray(delta: float) -> void:
 			break;
 
 func move_along_path() -> void:
-	if path.size() == 0:
-		return
-	if (position - path[current_path_idx]).length() > acceptable_pt_diff:
-		velocity = (path[current_path_idx] - position).normalized() * speed
-	else:
-		velocity = Vector2.ZERO
-		if current_path_idx == 0: 
-			moving_path_forward = true
-		if current_path_idx == path.size() - 1:
-			moving_path_forward = false
-		if moving_path_forward: 
-			current_path_idx += 1
-		else:
-			current_path_idx -= 1
+    if path.size() == 0:
+        if (initial_position - position).length() > acceptable_pt_diff:
+            velocity = (initial_position - position).normalized() * speed
+        else: 
+            velocity = Vector2.ZERO
+        return
+    if (position - path[current_path_idx]).length() > acceptable_pt_diff:
+        velocity = (path[current_path_idx] - position).normalized() * speed
+    else:
+        velocity = Vector2.ZERO
+        if current_path_idx == 0: 
+            moving_path_forward = true
+        if current_path_idx == path.size() - 1:
+            moving_path_forward = false
+        if moving_path_forward: 
+            current_path_idx += 1
+        else:
+            current_path_idx -= 1
 
 func _physics_process(delta: float) -> void:
-	if not Engine.is_editor_hint():
-		if health > 0:
-			if knocked:
-				animPlaying = true
-				velocity = knock_velocity
-				if velocity.x > 0:
-					sprite.play("knockedL")
-				else:
-					sprite.play("knockedR")
-			else:
-				if personal_suspicion == 0: 
-					move_along_path()
-				if personal_suspicion < suspicion_threshold: 
-					suspicious() 
-				if personal_suspicion >= suspicion_threshold: 
-					alerted()
-				move_dir = velocity.normalized()
-				if move_dir != Vector2.ZERO:
-					light_pivot.rotation = lerp(light_pivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
-			runAnims(move_dir)
-			scan_ray(delta)
-			var collision = move_and_collide(velocity * delta)
-			if collision: 
-				var object = collision.get_collider()
-				if object.is_in_group("DamageBody"):
-					health -= object.hit_damage
-					object.queue_free()
-				if health > 0:
-					knocked_timer.start()
-					knocked = true
-					var normal = collision.get_normal()
-					knock_velocity = -2*velocity.dot(normal)*normal + velocity
-					if velocity == Vector2.ZERO:
-						knock_velocity = -2*normal*speed
-					print(knock_velocity)
+    if not Engine.is_editor_hint():
+        if health > 0:
+            if knocked:
+                animPlaying = true
+                velocity = knock_velocity
+                if velocity.x < 0:
+                    sprite.play("knockedL")
+                else:
+                    sprite.play("knockedR")
+            else:
+                if personal_suspicion == 0: 
+                    move_along_path()
+                if personal_suspicion < suspicion_threshold: 
+                    suspicious() 
+                if personal_suspicion >= suspicion_threshold: 
+                    alerted()
+                move_dir = velocity.normalized()
+                if move_dir != Vector2.ZERO:
+                    light_pivot.rotation = lerp(light_pivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
+            runAnims(move_dir)
+            scan_ray(delta)
+            var collision = move_and_collide(velocity * delta)
+            if collision: 
+                var object = collision.get_collider()
+                if object.is_in_group("DamageBody"):
+                    health -= object.hit_damage
+                    object.queue_free()
+                if health > 0:
+                    knocked_timer.start()
+                    knocked = true
+                    var normal = collision.get_normal()
+                    knock_velocity = -2*velocity.dot(normal)*normal + velocity
+                    if velocity == Vector2.ZERO:
+                        knock_velocity = normal*speed
+                    print(knock_velocity)
 
 		if health <= 0: # when you're dead:
 			light.enabled = false
@@ -192,5 +199,5 @@ func runAnims(input_vector) -> void:
 
 
 func _on_knocked_timer_timeout() -> void:
-	knocked = false
-	animPlaying = false
+    knocked = false
+    animPlaying = false
