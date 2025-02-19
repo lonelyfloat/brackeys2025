@@ -22,7 +22,7 @@ extends CharacterBody2D
 @onready var knocked_timer := get_node("KnockedTimer")
 
 var current_path_idx := 0
-var acceptable_pt_diff := 15 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
+var acceptable_pt_diff := 5 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
 var moving_path_forward := true
 var move_dir := Vector2.ZERO
 
@@ -33,6 +33,8 @@ var personal_suspicion := 0.0
 var x_dir := 0
 var y_dir := 0
 var animPlaying := false
+
+var initial_position
 
 var knocked := false
 
@@ -71,6 +73,7 @@ func config_light_texture() ->void:
     light_pivot.rotation = deg_to_rad(initial_rotation)
 
 func _ready() -> void:
+    initial_position = position
     ray.target_position = Vector2(0, ray_length)
     sprite.modulate = color
     config_light_texture()
@@ -88,6 +91,10 @@ func scan_ray(delta: float) -> void:
 
 func move_along_path() -> void:
     if path.size() == 0:
+        if (initial_position - position).length() > acceptable_pt_diff:
+            velocity = (initial_position - position).normalized() * speed
+        else: 
+            velocity = Vector2.ZERO
         return
     if (position - path[current_path_idx]).length() > acceptable_pt_diff:
         velocity = (path[current_path_idx] - position).normalized() * speed
@@ -108,7 +115,7 @@ func _physics_process(delta: float) -> void:
             if knocked:
                 animPlaying = true
                 velocity = knock_velocity
-                if velocity.x > 0:
+                if velocity.x < 0:
                     sprite.play("knockedL")
                 else:
                     sprite.play("knockedR")
@@ -136,7 +143,7 @@ func _physics_process(delta: float) -> void:
                     var normal = collision.get_normal()
                     knock_velocity = -2*velocity.dot(normal)*normal + velocity
                     if velocity == Vector2.ZERO:
-                        knock_velocity = -2*normal*speed
+                        knock_velocity = normal*speed
                     print(knock_velocity)
 
         if health <= 0: # when you're dead:
@@ -194,4 +201,3 @@ func runAnims(input_vector) -> void:
 func _on_knocked_timer_timeout() -> void:
     knocked = false
     animPlaying = false
-
