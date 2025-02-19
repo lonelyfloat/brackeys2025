@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 300
-@export var bounce_power := 1
+@export var bounce_power := 1.0
 @export var terminal_velocity := 2000
 
 @onready var sprite := $AnimatedSprite2D
@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var armR := $armR
 @onready var armL := $armL
 @onready var sniber := $SniberAnchor/Sniber
+@onready var momentum_timer := $MomentumTimer
 
 
 var bounce := false
@@ -22,12 +23,16 @@ var y_dir := 0
 
 var acceleration := 150
 var normal_friction := 0.85
-var bounce_friction := 0.96
+var conserving_friction := 0.99
 var friction = normal_friction
 
+var conserving := false
+var input_vector := Vector2.ZERO
+
 func _physics_process(delta: float) -> void:
-	var input_vector = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
+	input_vector = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
 	runAnims(input_vector)
+
 	
 	if x_dir > 0:
 		armR.visible = true
@@ -45,23 +50,27 @@ func _physics_process(delta: float) -> void:
 
 	if(input_vector != Vector2.ZERO && !bouncing):
 		if velocity.length() >= speed:
-			velocity = input_vector.normalized() * velocity.length()
+			velocity = input_vector * velocity.length()
 		else:
 			velocity += input_vector * acceleration
+	if input_vector == Vector2.ZERO && momentum_timer.is_stopped(): 
+		momentum_timer.start()
 
-	if bouncing: 
-		friction = bounce_friction
-	else: 
-		friction = normal_friction
 		
 	if bounce:
 		animPlaying = true
 		velocity = vel*bounce_power
 		bounce = false
+		conserving = true
 		if velocity.x < 0:
 			sprite.play("knockedL")
 		else:
 			sprite.play("knockedR")
+
+	if conserving: 
+		friction = conserving_friction
+	else: 
+		friction = normal_friction
 	
 	if(velocity.length() > terminal_velocity):
 		velocity = terminal_velocity*velocity.normalized()
@@ -74,8 +83,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			vel = Vector2(velocity.x,velocity.y * -1)
 		bounce = true
+		conserving = true
 		bouncing = true
-		bounce_time(0.33)
+		bounce_time(0.15)
 
 func bounce_time(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
@@ -85,7 +95,7 @@ func bounce_time(seconds: float) -> void:
 func recoil(speed, damage, rot) -> void:
 		vel = Vector2(-damage*speed/1000 * cos(rot),-damage*speed/1000 * sin(rot))
 		bounce = true
-		bouncing = true
+		conserving = true
 		bounce_time(0.33)
 	
 func runAnims(input_vector) -> void:
@@ -135,3 +145,8 @@ func runAnims(input_vector) -> void:
 			armR.z_index = -4
 			armL.z_index = -4
 			sniber.z_index = -1
+
+
+func _on_momentum_timer_timeout() -> void:
+	if input_vector == Vector2.ZERO: 
+		conserving = false

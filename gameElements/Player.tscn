@@ -295,6 +295,8 @@ height = 140.0
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 motion_mode = 1
 script = ExtResource("1_xki20")
+bounce_power = 2.0
+terminal_velocity = 1000
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
@@ -304,10 +306,9 @@ animation = &"idleF"
 [node name="SniberAnchor" type="Node2D" parent="."]
 position = Vector2(0, -21)
 script = ExtResource("3_3my5u")
-damage = 300.0
-muzzle_velocity = 50.0
-clip_size = 40
-fire_rate = 0.001
+damage = 2000.0
+muzzle_velocity = 2000.0
+reload_time = 1.0
 
 [node name="handTargetR" type="Node2D" parent="SniberAnchor"]
 position = Vector2(29, 1)
@@ -450,3 +451,9 @@ position_smoothing_speed = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1jg3a")
+
+[node name="MomentumTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="MomentumTimer" to="." method="_on_momentum_timer_timeout"]
