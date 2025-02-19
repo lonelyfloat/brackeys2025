@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://daurrc68lmhxg"]
+[gd_scene load_steps=8 format=3 uid="uid://daurrc68lmhxg"]
 
 [ext_resource type="PackedScene" uid="uid://b82xyl2dqnwky" path="res://gameElements/Player.tscn" id="1_8ur0g"]
 [ext_resource type="PackedScene" uid="uid://b4dbq86g112nn" path="res://gameElements/generic_crowd_npc.tscn" id="2_h48vl"]
-[ext_resource type="Texture2D" uid="uid://bs80vumhyddtt" path="res://icon.svg" id="3_nmpvq"]
 [ext_resource type="PackedScene" uid="uid://x1ml0delfs2" path="res://gameElements/suspicion_manager.tscn" id="4_54eyk"]
 
 [sub_resource type="Gradient" id="Gradient_ya5yq"]
@@ -47,7 +46,7 @@ path = Array[Vector2]([Vector2(200, 0), Vector2(400, 100), Vector2(0, 50)])
 light_texture_scale = 2
 view_cone_angle = 15.0
 ray_length = 500.0
-texture = ExtResource("3_nmpvq")
+color = Color(0.872069, 0.798579, 0.997915, 1)
 
 [node name="SuspicionManager" parent="." instance=ExtResource("4_54eyk")]
 position = Vector2(200, -5)
