@@ -141,9 +141,7 @@ func _physics_process(delta: float) -> void:
                     knocked_timer.start()
                     knocked = true
                     var normal = collision.get_normal()
-                    knock_velocity = -2*velocity.dot(normal)*normal + velocity
-                    if velocity == Vector2.ZERO:
-                        knock_velocity = normal*speed
+                    knock_velocity = normal*speed
                     print(knock_velocity)
 
         if health <= 0: # when you're dead:
@@ -166,7 +164,7 @@ func _notification(what: int) -> void:
         queue_redraw()
         config_light_texture()
 
-func runAnims(input_vector) -> void:
+func runAnims(input_vector: Vector2) -> void:
     if animPlaying:
         return
 
