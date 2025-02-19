@@ -306,7 +306,6 @@ animation = &"idleR"
 [node name="SniberAnchor" type="Node2D" parent="."]
 position = Vector2(0, -21)
 script = ExtResource("3_3my5u")
-damage = 2000.0
 muzzle_velocity = 2000.0
 reload_time = 1.0
 

@@ -78,14 +78,15 @@ func _physics_process(delta: float) -> void:
 
 	velocity *= friction
 	if collision:
-		if fmod(collision.get_angle(),PI) > 0.77:
-			vel = Vector2(velocity.x * -1,velocity.y)
-		else:
-			vel = Vector2(velocity.x,velocity.y * -1)
+
+		var normal = collision.get_normal()
+		# this change fixes collisions with the capsules (angles aren't 90deg)
+		vel = -2 * velocity.dot(normal) * normal + velocity
+
 		bounce = true
 		conserving = true
 		bouncing = true
-		bounce_time(0.15)
+		bounce_time(0.33)
 
 func bounce_time(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout

@@ -12,16 +12,14 @@ extends CharacterBody2D
 @export var suspicion_threshold := 10
 @export var initial_rotation := 0.0
 
-@export var texture: Texture2D:
-    set(new_texture):
-        texture = new_texture
-        if(sprite):
-            sprite.texture = texture
+@export var color: Color
 
 @onready var sprite := get_node("Sprite2D")
 @onready var ray := get_node("RayCast2D")
 @onready var light_pivot := get_node("LightPivot")
 @onready var light := get_node("LightPivot/PointLight2D")
+@onready var collider := get_node("CollisionShape2D")
+@onready var knocked_timer := get_node("KnockedTimer")
 
 var current_path_idx := 0
 var acceptable_pt_diff := 15 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
@@ -32,6 +30,13 @@ var health = max_health
 
 var personal_suspicion := 0.0
 
+var x_dir := 0
+var y_dir := 0
+var animPlaying := false
+
+var knocked := false
+
+var knock_velocity := Vector2.ZERO
 signal suspicion_raised(amount: float)
 
 func _draw():
@@ -41,7 +46,7 @@ func _draw():
                 draw_line(path[i] - global_position, path[i+1] - global_position, Color(1,1,1,1))
         draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(initial_rotation-view_cone_angle)), sin(deg_to_rad(initial_rotation-view_cone_angle))), Color(0,1,0,1))
         draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(initial_rotation + view_cone_angle)), sin(deg_to_rad(initial_rotation + view_cone_angle))), Color(0,1,0,1))
-
+        sprite.modulate = color
 
 func config_light_texture() ->void: 
     light.texture_scale = light_texture_scale
@@ -67,7 +72,7 @@ func config_light_texture() ->void:
 
 func _ready() -> void:
     ray.target_position = Vector2(0, ray_length)
-    sprite.texture = texture
+    sprite.modulate = color
     config_light_texture()
 
 func scan_ray(delta: float) -> void: 
@@ -100,23 +105,48 @@ func move_along_path() -> void:
 func _physics_process(delta: float) -> void:
     if not Engine.is_editor_hint():
         if health > 0:
-            if personal_suspicion == 0: 
-                move_along_path()
-            if personal_suspicion < suspicion_threshold: 
-                suspicious() 
-            if personal_suspicion >= suspicion_threshold: 
-                alerted()
-            move_dir = velocity.normalized()
-            if move_dir != Vector2.ZERO:
-                light_pivot.rotation = lerp(light_pivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
+            if knocked:
+                animPlaying = true
+                velocity = knock_velocity
+                if velocity.x > 0:
+                    sprite.play("knockedL")
+                else:
+                    sprite.play("knockedR")
+            else:
+                if personal_suspicion == 0: 
+                    move_along_path()
+                if personal_suspicion < suspicion_threshold: 
+                    suspicious() 
+                if personal_suspicion >= suspicion_threshold: 
+                    alerted()
+                move_dir = velocity.normalized()
+                if move_dir != Vector2.ZERO:
+                    light_pivot.rotation = lerp(light_pivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
+            runAnims(move_dir)
             scan_ray(delta)
             var collision = move_and_collide(velocity * delta)
             if collision: 
-                if collision.get_collider().is_in_group("DamageBody"):
-                    health -= collision.get_collider().hit_damage
+                var object = collision.get_collider()
+                if object.is_in_group("DamageBody"):
+                    health -= object.hit_damage
+                    object.queue_free()
+                if health > 0:
+                    knocked_timer.start()
+                    knocked = true
+                    var normal = collision.get_normal()
+                    knock_velocity = -2*velocity.dot(normal)*normal + velocity
+                    if velocity == Vector2.ZERO:
+                        knock_velocity = -2*normal*speed
+                    print(knock_velocity)
+
         if health <= 0: # when you're dead:
             light.enabled = false
             ray.enabled = false
+            if !animPlaying: 
+                sprite.play("die")
+                animPlaying = true
+                collider.position = Vector2(0, 28)
+                collider.shape.set_height(60);
 
 func suspicious():
     pass
@@ -128,3 +158,40 @@ func _notification(what: int) -> void:
     if what == NOTIFICATION_EDITOR_POST_SAVE:
         queue_redraw()
         config_light_texture()
+
+func runAnims(input_vector) -> void:
+    if animPlaying:
+        return
+
+    if input_vector.x != 0 || y_dir == 0:
+        y_dir = 0
+
+    if(abs(input_vector.x) >= abs(input_vector.y)):
+        if(input_vector.x > 0):
+            sprite.play("moveR")
+        elif(input_vector.x < 0):
+            sprite.play("moveL")
+        elif(x_dir > 0):
+            sprite.play("idleR")
+        elif(x_dir < 0):
+            sprite.play("idleL")
+        elif(y_dir > 0):
+            sprite.play("idleB")
+        elif(y_dir < 0):
+            sprite.play("idleF")
+        else:
+            sprite.play("idleF")
+    else:
+        x_dir = 0
+        if(input_vector.y > 0):
+            sprite.play("moveF")
+            y_dir = -1
+        elif(input_vector.y < 0):
+            sprite.play("moveB")
+            y_dir = 1
+
+
+func _on_knocked_timer_timeout() -> void:
+    knocked = false
+    animPlaying = false
+
