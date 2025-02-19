@@ -47,7 +47,14 @@ path = Array[Vector2]([Vector2(200, 0), Vector2(400, 100), Vector2(0, 50)])
 light_texture_scale = 2
 view_cone_angle = 15.0
 ray_length = 500.0
+max_health = 500.0
 texture = ExtResource("3_nmpvq")
 
 [node name="SuspicionManager" parent="." instance=ExtResource("4_54eyk")]
 position = Vector2(200, -5)
+
+[node name="GenericCrowdNPC2" parent="." instance=ExtResource("2_h48vl")]
+position = Vector2(482, -361)
+max_health = 500.0
+initial_rotation = 90.0
+texture = ExtResource("3_nmpvq")

@@ -301,7 +301,7 @@ terminal_velocity = 1000
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_326wc")
-animation = &"idleF"
+animation = &"idleR"
 
 [node name="SniberAnchor" type="Node2D" parent="."]
 position = Vector2(0, -21)

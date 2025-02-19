@@ -1,4 +1,5 @@
 @tool
+class_name GenericCrowdNPC
 extends CharacterBody2D
 
 
@@ -7,7 +8,9 @@ extends CharacterBody2D
 @export var light_texture_scale := 5
 @export var view_cone_angle := 30.0
 @export var ray_length := 300.0
-
+@export var max_health := 500.0
+@export var suspicion_threshold := 10
+@export var initial_rotation := 0.0
 
 @export var texture: Texture2D:
     set(new_texture):
@@ -17,13 +20,17 @@ extends CharacterBody2D
 
 @onready var sprite := get_node("Sprite2D")
 @onready var ray := get_node("RayCast2D")
-@onready var lightPivot := get_node("LightPivot")
+@onready var light_pivot := get_node("LightPivot")
 @onready var light := get_node("LightPivot/PointLight2D")
 
 var current_path_idx := 0
 var acceptable_pt_diff := 15 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
 var moving_path_forward := true
 var move_dir := Vector2.ZERO
+
+var health = max_health
+
+var personal_suspicion := 0.0
 
 signal suspicion_raised(amount: float)
 
@@ -32,8 +39,8 @@ func _draw():
         if path.size() > 1:
             for i in range(0, path.size() - 1):
                 draw_line(path[i] - global_position, path[i+1] - global_position, Color(1,1,1,1))
-        draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(-view_cone_angle)), sin(deg_to_rad(-view_cone_angle))), Color(0,1,0,1))
-        draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(view_cone_angle)), sin(deg_to_rad(view_cone_angle))), Color(0,1,0,1))
+        draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(initial_rotation-view_cone_angle)), sin(deg_to_rad(initial_rotation-view_cone_angle))), Color(0,1,0,1))
+        draw_line(Vector2.ZERO, ray_length * Vector2(cos(deg_to_rad(initial_rotation + view_cone_angle)), sin(deg_to_rad(initial_rotation + view_cone_angle))), Color(0,1,0,1))
 
 
 func config_light_texture() ->void: 
@@ -56,6 +63,7 @@ func config_light_texture() ->void:
     var itex := ImageTexture.create_from_image(wholeimg)
     light.texture = itex
     light.position.x = light.texture.get_width() * light_texture_scale / 2.0
+    light_pivot.rotation = deg_to_rad(initial_rotation)
 
 func _ready() -> void:
     ray.target_position = Vector2(0, ray_length)
@@ -69,9 +77,9 @@ func scan_ray(delta: float) -> void:
         var object = ray.get_collider()
         if object != null && object.is_in_group("Player"):
             if object.suspicion_level > 0: 
+                personal_suspicion += object.suspicion_level * delta
                 suspicion_raised.emit(object.suspicion_level * delta)
             break;
-
 
 func move_along_path() -> void:
     if path.size() == 0:
@@ -91,12 +99,30 @@ func move_along_path() -> void:
 
 func _physics_process(delta: float) -> void:
     if not Engine.is_editor_hint():
-        move_along_path()
-        move_dir = velocity.normalized()
-        lightPivot.rotation = lerp(lightPivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
-        scan_ray(delta)
-        queue_redraw()
-        move_and_slide()
+        if health > 0:
+            if personal_suspicion == 0: 
+                move_along_path()
+            if personal_suspicion < suspicion_threshold: 
+                suspicious() 
+            if personal_suspicion >= suspicion_threshold: 
+                alerted()
+            move_dir = velocity.normalized()
+            if move_dir != Vector2.ZERO:
+                light_pivot.rotation = lerp(light_pivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
+            scan_ray(delta)
+            var collision = move_and_collide(velocity * delta)
+            if collision: 
+                if collision.get_collider().is_in_group("DamageBody"):
+                    health -= collision.get_collider().hit_damage
+        if health <= 0: # when you're dead:
+            light.enabled = false
+            ray.enabled = false
+
+func suspicious():
+    pass
+
+func alerted():
+    pass
 
 func _notification(what: int) -> void: 
     if what == NOTIFICATION_EDITOR_POST_SAVE:
