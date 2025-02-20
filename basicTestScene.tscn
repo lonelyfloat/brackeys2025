@@ -54,3 +54,4 @@ position = Vector2(200, -5)
 [node name="GenericCrowdNPC2" parent="." instance=ExtResource("2_h48vl")]
 position = Vector2(482, -361)
 initial_rotation = 90.0
+color = Color(0.703277, 0.462316, 0.558383, 1)
