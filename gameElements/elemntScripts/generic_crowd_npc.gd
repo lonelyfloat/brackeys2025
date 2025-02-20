@@ -2,7 +2,6 @@
 class_name GenericCrowdNPC
 extends CharacterBody2D
 
-
 @export var path: Array[Vector2]
 @export var speed := 200
 @export var light_texture_scale := 5

@@ -23,7 +23,7 @@ data = {
 image = SubResource("Image_fl0s3")
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_w1ff3"]
-target_nodepath = NodePath("../../SniberAnchor/handTargetR")
+target_nodepath = NodePath("../../gunAnchor/handTargetR")
 flip_bend_direction = true
 joint_one_bone_idx = 0
 joint_one_bone2d_node = NodePath("UpperArm")
@@ -36,7 +36,7 @@ modification_count = 1
 modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_w1ff3")
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_v6xdx"]
-target_nodepath = NodePath("../../SniberAnchor/handTargetR")
+target_nodepath = NodePath("../../gunAnchor/handTargetR")
 joint_one_bone_idx = 0
 joint_one_bone2d_node = NodePath("UpperArm")
 joint_two_bone_idx = 1
@@ -57,17 +57,17 @@ texture = SubResource("ImageTexture_8lxow")
 sprite_frames = ExtResource("3_whfo5")
 animation = &"moveR"
 
-[node name="SniberAnchor" type="Node2D" parent="." index="5"]
+[node name="gunAnchor" type="Node2D" parent="." index="5"]
 position = Vector2(0, -13)
 script = ExtResource("4_n2ymd")
 muzzle_velocity = 2000.0
 reload_time = 1.0
 
-[node name="handTargetR" type="Node2D" parent="SniberAnchor" index="0"]
+[node name="handTargetR" type="Node2D" parent="gunAnchor" index="0"]
 position = Vector2(38.284, 0.0261841)
 scale = Vector2(0.15, 0.15)
 
-[node name="gun" type="Sprite2D" parent="SniberAnchor" index="1"]
+[node name="gun" type="Sprite2D" parent="gunAnchor" index="1"]
 light_mask = 2
 z_index = 2
 position = Vector2(17.284, -0.973817)
@@ -75,7 +75,7 @@ scale = Vector2(0.047, 0.047)
 texture = ExtResource("4_ejjlx")
 offset = Vector2(740, -126.855)
 
-[node name="bulletSpawnTarget" type="Node2D" parent="SniberAnchor/gun" index="0"]
+[node name="bulletSpawnTarget" type="Node2D" parent="gunAnchor/gun" index="0"]
 position = Vector2(1234.04, -297.872)
 scale = Vector2(7.69231, 7.69231)
 
@@ -89,7 +89,7 @@ modification_stack = SubResource("SkeletonModificationStack2D_wc447")
 
 [node name="UpperArm" type="Bone2D" parent="armR/Skeleton2D" index="0"]
 position = Vector2(-134.333, -193.333)
-rotation = -0.4112
+rotation = -0.411199
 scale = Vector2(0.999966, 0.999966)
 rest = Transform2D(0.904648, -0.42608, 0.42608, 0.904648, -175, -175)
 metadata/_local_pose_override_enabled_ = true
@@ -99,7 +99,7 @@ remote_path = NodePath("../../../ArmTopFill")
 
 [node name="lowerArm" type="Bone2D" parent="armR/Skeleton2D/UpperArm" index="1"]
 position = Vector2(6, 218)
-rotation = -3.11274
+rotation = -2.92167
 scale = Vector2(0.999927, 0.999927)
 rest = Transform2D(-0.999511, -0.0288494, 0.0288494, -0.999511, 6, 218)
 auto_calculate_length_and_angle = false
@@ -114,7 +114,7 @@ remote_path = NodePath("../../../../ArmBottomFill")
 [node name="ArmTopFill" type="Sprite2D" parent="armR" index="1"]
 z_index = 1
 position = Vector2(-133.333, -193.333)
-rotation = -0.4112
+rotation = -0.411198
 scale = Vector2(0.999966, 0.999966)
 texture = ExtResource("6_ifta4")
 offset = Vector2(26.6666, 280)
@@ -127,9 +127,9 @@ offset = Vector2(-0.333359, -5)
 
 [node name="ArmBottomFill" type="Sprite2D" parent="armR" index="2"]
 z_index = 1
-position = Vector2(-40.7, 4.08963)
+position = Vector2(-40.7003, 4.08976)
 rotation = -1.76207
-scale = Vector2(0.999892, 0.999892)
+scale = Vector2(0.999893, 0.999893)
 texture = ExtResource("8_sqdog")
 offset = Vector2(20, 40)
 
@@ -149,7 +149,7 @@ modification_stack = SubResource("SkeletonModificationStack2D_lv7ju")
 [node name="UpperArm" type="Bone2D" parent="armL/Skeleton2D" index="0"]
 z_index = 4
 position = Vector2(134.333, -193.333)
-rotation = -2.13869
+rotation = -2.71219
 scale = Vector2(0.999965, 0.999965)
 rest = Transform2D(0.994132, 0.107936, -0.107936, 0.994132, -29, -26)
 metadata/_local_pose_override_enabled_ = true
@@ -159,7 +159,7 @@ remote_path = NodePath("../../../ArmTopFill")
 
 [node name="lowerArm" type="Bone2D" parent="armL/Skeleton2D/UpperArm" index="1"]
 position = Vector2(6, 218)
-rotation = 1.64905
+rotation = 1.13515
 scale = Vector2(0.999927, 0.999927)
 rest = Transform2D(0.0781647, -0.996867, 0.996867, 0.0781647, 6, 218)
 auto_calculate_length_and_angle = false
@@ -174,7 +174,7 @@ remote_path = NodePath("../../../../ArmBottomFill")
 [node name="ArmTopFill" type="Sprite2D" parent="armL" index="1"]
 z_index = 1
 position = Vector2(135.333, -193.333)
-rotation = -2.71218
+rotation = -2.71219
 scale = Vector2(0.999965, 0.999965)
 texture = ExtResource("6_ifta4")
 offset = Vector2(26.6666, 280)
@@ -187,9 +187,9 @@ offset = Vector2(-0.333359, -5)
 
 [node name="ArmBottomFill" type="Sprite2D" parent="armL" index="2"]
 z_index = 1
-position = Vector2(220.636, -394.032)
-rotation = -0.00623473
-scale = Vector2(0.999891, 0.999891)
+position = Vector2(220.635, -394.032)
+rotation = -0.00623713
+scale = Vector2(0.999892, 0.999892)
 texture = ExtResource("8_sqdog")
 offset = Vector2(20, 40)
 
