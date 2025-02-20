@@ -29,7 +29,6 @@ func _process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
 	
 	if Input.is_action_pressed("fire") && loaded:
-		print(loaded_ammo)
 		var shot = bullet.instantiate()
 		shot.hit_damage = damage
 		shot.speed = muzzle_velocity
@@ -46,9 +45,9 @@ func _process(_delta: float) -> void:
 	if Input.is_action_pressed("reload") && loaded:
 		reload(reload_time, true)
 		
-func reload(seconds: float, load: bool) -> void:
+func reload(seconds: float, loading: bool) -> void:
 	loaded = false
 	await get_tree().create_timer(seconds).timeout
-	if load:
+	if loading:
 		loaded_ammo = clip_size
 	loaded = true

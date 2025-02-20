@@ -13,7 +13,7 @@ func _ready() -> void:
 	timer.start(lifetime)
 	apply_central_impulse(Vector2(cos(rotation), sin(rotation)) * speed)
 	time()
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	sprite.modulate.a = fade_curve.sample(1 - (timer.time_left/lifetime))
 
 	

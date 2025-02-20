@@ -142,7 +142,7 @@ func _physics_process(delta: float) -> void:
 					knocked = true
 					var normal = collision.get_normal()
 					knock_velocity = normal*speed
-					print(knock_velocity)
+					#print(knock_velocity)
 
 		if health <= 0: # when you're dead:
 			light.enabled = false

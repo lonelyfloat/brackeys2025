@@ -5,12 +5,14 @@ extends GenericCrowdNPC
 @onready var armL := $armL
 
 func suspicious():
-	print("guard suspicious")
+	#print("guard suspicious")
+	pass
 
 func alert():
-	print("guard alert")
+	#print("guard alert")
+	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if x_dir > 0:
 		armR.visible = true
 		armL.visible = false

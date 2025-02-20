@@ -301,10 +301,12 @@ terminal_velocity = 1000
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_326wc")
-animation = &"idleR"
+animation = &"idleF"
 
 [node name="SniberAnchor" type="Node2D" parent="."]
-position = Vector2(0, -21)
+z_index = 2
+position = Vector2(42, 45)
+rotation = -2.00129
 script = ExtResource("3_3my5u")
 muzzle_velocity = 2000.0
 reload_time = 1.0
@@ -314,7 +316,6 @@ position = Vector2(29, 1)
 scale = Vector2(0.15, 0.15)
 
 [node name="Sniber" type="Sprite2D" parent="SniberAnchor"]
-z_index = 2
 position = Vector2(27, -9.53674e-07)
 scale = Vector2(0.13, 0.13)
 texture = ExtResource("3_npura")
@@ -359,8 +360,8 @@ remote_path = NodePath("../../../../ArmBottomFill")
 [node name="ArmTopFill" type="Sprite2D" parent="armR"]
 z_index = 1
 position = Vector2(-174, -175)
-rotation = -0.440171
-scale = Vector2(0.999966, 0.999966)
+rotation = -0.373308
+scale = Vector2(0.999951, 0.999951)
 texture = ExtResource("7_f2mqu")
 offset = Vector2(26.6666, 280)
 
@@ -372,9 +373,9 @@ offset = Vector2(-0.333359, -5)
 
 [node name="ArmBottomFill" type="Sprite2D" parent="armR"]
 z_index = 1
-position = Vector2(-75.6868, 19.6568)
-rotation = -1.98211
-scale = Vector2(0.999893, 0.999893)
+position = Vector2(-88.9133, 25.7875)
+rotation = -1.15051
+scale = Vector2(0.999862, 0.999862)
 texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
 
@@ -419,8 +420,8 @@ remote_path = NodePath("../../../../ArmBottomFill")
 [node name="ArmTopFill" type="Sprite2D" parent="armL"]
 z_index = 1
 position = Vector2(176, -175)
-rotation = 2.77489
-scale = Vector2(0.999966, 0.999966)
+rotation = -1.3245
+scale = Vector2(0.999945, 0.999945)
 texture = ExtResource("7_f2mqu")
 offset = Vector2(26.6666, 280)
 
@@ -432,9 +433,9 @@ offset = Vector2(-0.333359, -5)
 
 [node name="ArmBottomFill" type="Sprite2D" parent="armL"]
 z_index = 1
-position = Vector2(92.2394, -376.348)
-rotation = -0.288452
-scale = Vector2(0.999893, 0.999893)
+position = Vector2(388.872, -127.67)
+rotation = 0.740482
+scale = Vector2(0.999845, 0.999845)
 texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
 
