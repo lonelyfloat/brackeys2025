@@ -1,17 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://daurrc68lmhxg"]
+[gd_scene load_steps=10 format=4 uid="uid://daurrc68lmhxg"]
 
 [ext_resource type="PackedScene" uid="uid://b82xyl2dqnwky" path="res://gameElements/Player.tscn" id="1_8ur0g"]
 [ext_resource type="PackedScene" uid="uid://b4dbq86g112nn" path="res://gameElements/generic_crowd_npc.tscn" id="2_h48vl"]
 [ext_resource type="PackedScene" uid="uid://b5q861hmdww1f" path="res://gameElements/guard.tscn" id="4_8b8dl"]
 [ext_resource type="PackedScene" uid="uid://x1ml0delfs2" path="res://gameElements/suspicion_manager.tscn" id="4_54eyk"]
-
-[sub_resource type="Gradient" id="Gradient_ya5yq"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0.273873, 0.273873, 0.273873, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sfw7h"]
-gradient = SubResource("Gradient_ya5yq")
-repeat = 1
+[ext_resource type="TileSet" uid="uid://wg4j4s5kbe5v" path="res://new_tile_set.tres" id="5_jdqnp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4wm46"]
 size = Vector2(159, 156)
@@ -20,18 +13,20 @@ size = Vector2(159, 156)
 width = 158
 height = 152
 
-[node name="BasicTestScene" type="Node2D"]
+[sub_resource type="Gradient" id="Gradient_hmnqv"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.0399798, 3.76322e-06, 0.0445354, 1)
 
-[node name="background" type="Sprite2D" parent="."]
-z_index = -5
-position = Vector2(15, -73.5)
-scale = Vector2(22.4297, 12.5781)
-texture = SubResource("GradientTexture2D_sfw7h")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qywuv"]
+gradient = SubResource("Gradient_hmnqv")
+
+[node name="BasicTestScene" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_8ur0g")]
 position = Vector2(41, -82)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(-440, 52)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -53,7 +48,7 @@ color = Color(0.872069, 0.798579, 0.997915, 1)
 position = Vector2(200, -5)
 
 [node name="GenericCrowdNPC2" parent="." instance=ExtResource("2_h48vl")]
-position = Vector2(482, -361)
+position = Vector2(1026, -197)
 initial_rotation = 90.0
 
 [node name="Guard" parent="." instance=ExtResource("4_8b8dl")]
@@ -63,3 +58,25 @@ view_cone_angle = 40.0
 ray_length = 400.0
 suspicion_threshold = 0
 color = Color(0.323325, 0.620411, 0.410633, 1)
+
+[node name="tles" type="Node2D" parent="."]
+scale = Vector2(0.17, 0.17)
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="tles"]
+scale = Vector2(1, 1)
+tile_map_data = PackedByteArray("AAAKAP7/AQAAAAEAAAD9//7/AQABAAMAAAABAP7/AQABAAMAAAAEAP3/AQACAAUAAAAGAP3/AQABAAUAAAAIAP3/AQABAAUAAAAHAP7/AQADAAEAAAD9//3/AQAAAAMAAAABAP3/AQAAAAMAAAACAP7/AQAAAAUAAAD9////AQABAAEAAAAAAP7/AQACAAEAAAD7//3/AQACAAUAAAA=")
+tile_set = ExtResource("5_jdqnp")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="tles"]
+z_index = -10
+scale = Vector2(1, 1)
+tile_map_data = PackedByteArray("AAD/////AQAAAAAAAAABAP//AQAAAAAAAAAAAAAAAQAAAAAAAAD9//7/AQAAAAAAAAD9////AQAAAAAAAAAAAP3/AQAAAAAAAAACAP7/AQAAAAAAAAADAP//AQAAAAAAAAAFAP7/AQAAAAAAAAAFAAEAAQAAAAAAAAACAAIAAQAAAAAAAAD7/wEAAQAAAAAAAAD9/wEAAQABAAAAAAD+/wAAAQABAAAAAAD//wAAAQABAAAAAAAAAP//AQABAAAAAAD+//7/AQABAAAAAAACAP3/AQABAAAAAAAEAP3/AQABAAAAAAADAP7/AQABAAAAAAABAAAAAQABAAAAAAADAAEAAQABAAAAAAAEAAAAAQABAAAAAAAFAAIAAQABAAAAAAAEAAIAAQABAAAAAAAAAAEAAQABAAAAAAD+/wIAAQABAAAAAAD8//7/AQABAAAAAAD7////AQACAAAAAAD9/wAAAQACAAAAAAD+////AQACAAAAAAD7/wAAAQACAAAAAAD7/wIAAQACAAAAAAD8/wEAAQACAAAAAAD8////AQACAAAAAAD7//3/AQABAAAAAAD9//3/AQACAAAAAAD///3/AQACAAAAAAABAP3/AQACAAAAAAADAP3/AQACAAAAAAAEAP7/AQACAAAAAAAFAP//AQACAAAAAAAEAAEAAQACAAAAAAACAAAAAQACAAAAAAAAAP7/AQACAAAAAAABAAIAAQACAAAAAAABAAEAAQACAAAAAAD//wEAAQACAAAAAAAAAAIAAQACAAAAAAAFAP3/AQAEAAIAAAAFAAAAAQADAAAAAAAEAP//AQADAAAAAAADAAAAAQADAAAAAAACAP//AQADAAAAAAACAAEAAQADAAAAAAADAAIAAQADAAAAAAD//wIAAQADAAAAAAD+/wEAAQADAAAAAAD9/wIAAQADAAAAAAD8/wIAAQADAAAAAAD8/wAAAQADAAAAAAD7//7/AQADAAAAAAD8//3/AQADAAAAAAD+//3/AQADAAAAAAD///7/AQADAAAAAAABAP7/AQADAAAAAAD7//z/AQAEAAAAAAD8//z/AQAEAAAAAAD9//z/AQAEAAAAAAD+//z/AQAEAAAAAAD///z/AQAEAAAAAAAAAPz/AQAEAAAAAAABAPz/AQAEAAAAAAACAPz/AQAEAAAAAAADAPz/AQAEAAAAAAAEAPz/AQAEAAIAAAAGAP7/AQAEAAAAAAAHAP7/AQAEAAAAAAAIAP7/AQAEAAAAAAAJAP3/AQAEAAUAAAALAP3/AQAEAAIAAAAKAP3/AQAEAAAAAAAJAAAAAQACAAAAAAAKAP//AQACAAAAAAAKAP7/AQACAAAAAAAJAP7/AQACAAAAAAAHAP//AQACAAAAAAALAP//AQACAAAAAAALAAEAAQACAAAAAAAIAAEAAQACAAAAAAAIAAAAAQADAAAAAAAGAAEAAQACAAAAAAAHAAIAAQACAAAAAAAIAP//AQADAAAAAAAGAAAAAQADAAAAAAAKAAEAAQADAAAAAAALAAAAAQADAAAAAAAJAAIAAQADAAAAAAAHAAEAAQADAAAAAAAHAAAAAQABAAAAAAAGAP//AQABAAAAAAAKAAAAAQABAAAAAAALAAIAAQABAAAAAAAGAAIAAQAAAAAAAAAJAAEAAQAAAAAAAAAKAAIAAQAAAAAAAAAJAP//AQAAAAAAAAAIAAIAAQAAAAAAAAALAP7/AQABAAAAAAA=")
+tile_set = ExtResource("5_jdqnp")
+
+[node name="Sprite2D" type="Sprite2D" parent="tles"]
+light_mask = 2
+z_index = -50
+texture_filter = 2
+position = Vector2(1835.29, -376.47)
+scale = Vector2(1940.71, -542.665)
+texture = SubResource("GradientTexture2D_qywuv")
