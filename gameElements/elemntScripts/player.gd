@@ -97,7 +97,6 @@ func _physics_process(delta: float) -> void:
 		bounce_time(0.33)
 
 func _process(_delta: float) -> void:
-	print(suspicion_level)
 	if Input.is_action_just_pressed("stow"):
 		stowed_gun = !stowed_gun
 	if stowed_gun:

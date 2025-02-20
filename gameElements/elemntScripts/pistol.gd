@@ -10,6 +10,7 @@ extends Node2D
 
 
 var loaded_ammo
+var shoot = false
 var loaded = true
 var bullet = preload("res://gameElements/fired_bullet.tscn")
 
@@ -24,13 +25,18 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
 
 func _process(_delta: float) -> void:
-	if player.x > me.position.x:
+	if player.position.x > me.position.x:
 		gun.scale.y = 0.047
 	else:
 		gun.scale.y = -0.047
-	look_at(player)
+	look_at(player.position)
+	if me.player_in_view:
+		print("visible")
+		shoot = true
+	else:
+		shoot = false
 	
-	if Input.is_action_pressed("fire") && loaded:
+	if shoot && me.guard_alerted && loaded:
 		var shot = bullet.instantiate()
 		shot.hit_damage = damage
 		shot.speed = muzzle_velocity

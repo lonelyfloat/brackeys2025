@@ -28,6 +28,7 @@ var move_dir := Vector2.ZERO
 var health = max_health
 
 var personal_suspicion := 0.0
+var player_in_view = false
 
 var x_dir := 0
 var y_dir := 0
@@ -83,7 +84,7 @@ func scan_ray(delta: float) -> void:
 		ray.target_position = ray_length * Vector2(cos(view_angle + deg_to_rad(i*1.0)),sin(view_angle + deg_to_rad(i*1.0))) 
 		var object = ray.get_collider()
 		if object != null && object.is_in_group("Player"):
-			print(personal_suspicion)
+			player_in_view = true
 			if object.suspicion_level > 0: 
 				personal_suspicion += object.suspicion_level * delta
 				suspicion_raised.emit(object.suspicion_level * delta)
@@ -111,6 +112,7 @@ func move_along_path() -> void:
 
 func _physics_process(delta: float) -> void:
 	if not Engine.is_editor_hint():
+		player_in_view = false
 		if health > 0:
 			if knocked:
 				animPlaying = true
@@ -143,6 +145,8 @@ func _physics_process(delta: float) -> void:
 					var normal = collision.get_normal()
 					knock_velocity = normal*speed
 					#print(knock_velocity)
+			print("default no view")
+		
 
 		if health <= 0: # when you're dead:
 			light.enabled = false

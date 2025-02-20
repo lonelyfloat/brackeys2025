@@ -42,7 +42,6 @@ shape = SubResource("RectangleShape2D_4wm46")
 texture = SubResource("NoiseTexture2D_6xsw3")
 
 [node name="GenericCrowdNPC" parent="." instance=ExtResource("2_h48vl")]
-visible = false
 position = Vector2(-374, -209)
 path = Array[Vector2]([Vector2(200, 0), Vector2(400, 100), Vector2(0, 50)])
 light_texture_scale = 2
@@ -62,5 +61,5 @@ position = Vector2(-204, 120)
 path = Array[Vector2]([Vector2(0, 300), Vector2(900, 300)])
 view_cone_angle = 40.0
 ray_length = 400.0
-suspicion_threshold = 2
+suspicion_threshold = 0
 color = Color(0.323325, 0.620411, 0.410633, 1)
