@@ -16,17 +16,19 @@ var bullet = preload("res://gameElements/fired_bullet.tscn")
 @onready var gun := $gun
 @onready var me := $".."
 @onready var spawnblt = $gun/bulletSpawnTarget
+var player
 
 
 func _ready() -> void:
 	loaded_ammo = clip_size
+	player = get_tree().get_first_node_in_group("Player")
 
 func _process(_delta: float) -> void:
-	if get_global_mouse_position().x > me.position.x:
+	if player.x > me.position.x:
 		gun.scale.y = 0.047
 	else:
 		gun.scale.y = -0.047
-	look_at(get_global_mouse_position())
+	look_at(player)
 	
 	if Input.is_action_pressed("fire") && loaded:
 		var shot = bullet.instantiate()

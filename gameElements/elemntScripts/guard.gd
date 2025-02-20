@@ -40,7 +40,7 @@ func suspicious():
 	#print("guard suspicious")
 	pass
 
-func alert():
+func alerted():
 	gun_model.visible = true
 	guard_alerted = true
 	gun.process_mode = Node.PROCESS_MODE_INHERIT

@@ -360,8 +360,8 @@ remote_path = NodePath("../../../../ArmBottomFill")
 [node name="ArmTopFill" type="Sprite2D" parent="armR"]
 z_index = 1
 position = Vector2(-174, -175)
-rotation = -0.373308
-scale = Vector2(0.999951, 0.999951)
+rotation = -0.37324
+scale = Vector2(0.999966, 0.999966)
 texture = ExtResource("7_f2mqu")
 offset = Vector2(26.6666, 280)
 
@@ -373,9 +373,9 @@ offset = Vector2(-0.333359, -5)
 
 [node name="ArmBottomFill" type="Sprite2D" parent="armR"]
 z_index = 1
-position = Vector2(-88.9133, 25.7875)
-rotation = -1.15051
-scale = Vector2(0.999862, 0.999862)
+position = Vector2(-88.9258, 25.7962)
+rotation = -1.15055
+scale = Vector2(0.999893, 0.999893)
 texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
 
@@ -420,8 +420,8 @@ remote_path = NodePath("../../../../ArmBottomFill")
 [node name="ArmTopFill" type="Sprite2D" parent="armL"]
 z_index = 1
 position = Vector2(176, -175)
-rotation = -1.3245
-scale = Vector2(0.999945, 0.999945)
+rotation = -1.32456
+scale = Vector2(0.999965, 0.999965)
 texture = ExtResource("7_f2mqu")
 offset = Vector2(26.6666, 280)
 
@@ -433,9 +433,9 @@ offset = Vector2(-0.333359, -5)
 
 [node name="ArmBottomFill" type="Sprite2D" parent="armL"]
 z_index = 1
-position = Vector2(388.872, -127.67)
-rotation = 0.740482
-scale = Vector2(0.999845, 0.999845)
+position = Vector2(388.88, -127.683)
+rotation = 0.740477
+scale = Vector2(0.999892, 0.999892)
 texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
 
