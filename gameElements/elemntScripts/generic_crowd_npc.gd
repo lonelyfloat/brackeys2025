@@ -25,7 +25,7 @@ var acceptable_pt_diff := 5 # this value will need to be adjusted as we go - rep
 var moving_path_forward := true
 var move_dir := Vector2.ZERO
 
-var health := 10
+var health := 10.0
 
 var personal_suspicion := 0.0
 var player_in_view = false
@@ -88,7 +88,6 @@ func scan_ray(delta: float) -> void:
             player_in_view = true
             if object.suspicion_level > 0: 
                 personal_suspicion += object.suspicion_level * delta
-                suspicion_raised.emit(object.suspicion_level * delta)
             break;
 
 func move_along_path() -> void:
@@ -146,7 +145,6 @@ func _physics_process(delta: float) -> void:
                     var normal = collision.get_normal()
                     knock_velocity = normal*speed
                     #print(knock_velocity)
-            print("default no view")
         
 
         if health <= 0: # when you're dead:
@@ -159,10 +157,11 @@ func _physics_process(delta: float) -> void:
                 collider.shape.set_height(60);
 
 func suspicious():
-    pass
+    move_along_path()
 
 func alerted():
-    pass
+    move_along_path()
+    suspicion_raised.emit(personal_suspicion)
 
 func _notification(what: int) -> void: 
     if what == NOTIFICATION_EDITOR_POST_SAVE:
