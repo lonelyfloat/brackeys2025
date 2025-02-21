@@ -53,7 +53,7 @@ func alerted():
 	gun.position = Vector2(0,-21)
 
 func _process(_delta: float) -> void:
-	if guard_alerted:
+	if guard_alerted && !Engine.is_editor_hint():
 		if x_dir > 0:
 			armR.visible = true
 			armL.visible = false
