@@ -197,5 +197,6 @@ func _on_momentum_timer_timeout() -> void:
  
 func _on_area_entered(body: Node2D) -> void: 
 	if body.is_in_group("DamageBody"):
+		print("damage")
 		health -= body.hit_damage
 		body.queue_free()
