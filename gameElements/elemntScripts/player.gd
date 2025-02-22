@@ -37,6 +37,8 @@ var health := max_health
 
 var collision: KinematicCollision2D
 
+signal player_died()
+
 func _physics_process(delta: float) -> void:
 	input_vector = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
 	runAnims()
@@ -99,6 +101,8 @@ func _physics_process(delta: float) -> void:
 	velocity *= friction
 
 func _process(_delta: float) -> void:
+	if health <= 0:
+		player_died.emit()
 	if Input.is_action_just_pressed("stow"):
 		stowed_gun = !stowed_gun
 	if stowed_gun:

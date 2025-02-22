@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://csya0mnkriad0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_js0od"]
+font_size = 70
+
+[node name="WinScene" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 465.0
+offset_top = 249.0
+offset_right = 705.0
+offset_bottom = 377.0
+text = "yippee"
+label_settings = SubResource("LabelSettings_js0od")

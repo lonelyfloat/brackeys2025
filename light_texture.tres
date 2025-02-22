@@ -2,9 +2,10 @@
 
 [sub_resource type="Gradient" id="Gradient_p46ai"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.3, 0.4, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.127114, 0.127114, 0.127114, 1, 0.647846, 0.647846, 0.647846, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.32, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.110114, 0.110114, 0.110114, 1, 0.647846, 0.647846, 0.647846, 1, 1, 1, 1, 1)
 metadata/_snap_enabled = true
+metadata/_snap_count = 50
 
 [resource]
 gradient = SubResource("Gradient_p46ai")

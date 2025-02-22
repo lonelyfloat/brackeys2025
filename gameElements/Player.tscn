@@ -297,21 +297,19 @@ radius = 13.0
 height = 42.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-y_sort_enabled = true
 motion_mode = 1
+platform_floor_layers = 1
 script = ExtResource("1_xki20")
 bounce_power = 2.0
 terminal_velocity = 1000
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-y_sort_enabled = true
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_326wc")
 animation = &"idleF"
 
 [node name="SniberAnchor" type="Node2D" parent="."]
 z_index = 2
-y_sort_enabled = true
 position = Vector2(42, 45)
 rotation = -2.00129
 script = ExtResource("3_3my5u")
@@ -319,7 +317,6 @@ damage = 200.0
 reload_time = 1.0
 
 [node name="handTargetR" type="Node2D" parent="SniberAnchor"]
-y_sort_enabled = true
 position = Vector2(29, 1)
 scale = Vector2(0.15, 0.15)
 
@@ -330,13 +327,11 @@ texture = ExtResource("3_npura")
 offset = Vector2(740, -126.855)
 
 [node name="bulletSpawnTarget" type="Node2D" parent="SniberAnchor/Sniber"]
-y_sort_enabled = true
 position = Vector2(1800, -115)
 scale = Vector2(7.69231, 7.69231)
 
 [node name="armR" type="Node2D" parent="."]
 z_index = 4
-y_sort_enabled = true
 scale = Vector2(0.15, 0.15)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="armR"]
@@ -376,7 +371,7 @@ texture = ExtResource("7_f2mqu")
 offset = Vector2(26.6666, 280)
 
 [node name="ArmTopShadow" type="Sprite2D" parent="armR/ArmTopFill"]
-z_index = -2
+z_index = -1
 position = Vector2(26.6667, 286.667)
 texture = ExtResource("8_i75nq")
 offset = Vector2(-0.333359, -5)
@@ -390,13 +385,13 @@ texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
 
 [node name="ArmBottomShadow" type="Sprite2D" parent="armR/ArmBottomFill"]
-z_index = -2
+z_index = -1
 position = Vector2(20, 40)
 texture = ExtResource("6_h0onb")
 
 [node name="armL" type="Node2D" parent="."]
+visible = false
 z_index = 4
-y_sort_enabled = true
 scale = Vector2(0.15, 0.15)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="armL"]
@@ -437,7 +432,7 @@ texture = ExtResource("7_f2mqu")
 offset = Vector2(26.6666, 280)
 
 [node name="ArmTopShadow" type="Sprite2D" parent="armL/ArmTopFill"]
-z_index = -2
+z_index = -1
 position = Vector2(26.6667, 286.667)
 texture = ExtResource("8_i75nq")
 offset = Vector2(-0.333359, -5)
@@ -451,7 +446,7 @@ texture = ExtResource("5_q1ls1")
 offset = Vector2(20, 40)
 
 [node name="ArmBottomShadow" type="Sprite2D" parent="armL/ArmBottomFill"]
-z_index = -2
+z_index = -1
 position = Vector2(20, 40)
 texture = ExtResource("6_h0onb")
 
@@ -465,15 +460,12 @@ wait_time = 0.1
 one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
-y_sort_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-y_sort_enabled = true
 position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_1jg3a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-y_sort_enabled = true
 position = Vector2(0, 57)
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_nlhnp")

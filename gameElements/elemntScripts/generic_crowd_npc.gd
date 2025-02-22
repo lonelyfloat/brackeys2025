@@ -70,12 +70,11 @@ func config_light_texture() ->void:
 	var halfimg = half.get_image()
 	var flipped = halfimg.duplicate()
 	flipped.flip_y()
-	var wholeimg = Image.create_empty(w,h,true, halfimg.get_format())
-	wholeimg.blit_rect(halfimg, Rect2i(0,0,w,halfh), Vector2i(0,0))
-	wholeimg.blit_rect(flipped, Rect2i(0, 0, w, halfh), Vector2i(0,halfh))
+	var wholeimg = Image.create_empty(w*2,h,true, halfimg.get_format())
+	wholeimg.blit_rect(halfimg, Rect2i(0,0,w,halfh), Vector2i(w,0))
+	wholeimg.blit_rect(flipped, Rect2i(0, 0, w, halfh), Vector2i(w,halfh))
 	var itex := ImageTexture.create_from_image(wholeimg)
 	light.texture = itex
-	light.position.x = light.texture.get_width() * light_texture_scale / 2.0
 	light_pivot.rotation = deg_to_rad(initial_rotation)
 
 func _ready() -> void:
