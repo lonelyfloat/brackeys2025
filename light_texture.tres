@@ -1,9 +1,9 @@
-[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://c1b755jrdd31s"]
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://dsnh8oo7ntwy2"]
 
 [sub_resource type="Gradient" id="Gradient_p46ai"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.3, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.127114, 0.127114, 0.127114, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.3, 0.4, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.127114, 0.127114, 0.127114, 1, 0.647846, 0.647846, 0.647846, 1, 1, 1, 1, 1)
 metadata/_snap_enabled = true
 
 [resource]
@@ -11,6 +11,6 @@ gradient = SubResource("Gradient_p46ai")
 width = 28
 height = 28
 use_hdr = true
-fill_from = Vector2(0.4, 0.3)
-fill_to = Vector2(1, 1)
+fill_from = Vector2(0.3, 0.3)
+fill_to = Vector2(0.9, 0.9)
 metadata/_snap_enabled = true

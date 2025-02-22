@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export var speed = 300
 @export var bounce_power := 1.0
 @export var terminal_velocity := 2000
+@export var max_health := 300.0
+@export var gun_recoil := 1.0
 
 @onready var sprite := $AnimatedSprite2D
 
@@ -30,6 +32,10 @@ var friction = normal_friction
 
 var conserving := false
 var input_vector := Vector2.ZERO
+
+var health := max_health
+
+var collision: KinematicCollision2D
 
 func _physics_process(delta: float) -> void:
 	input_vector = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
@@ -82,19 +88,15 @@ func _physics_process(delta: float) -> void:
 	
 	if(velocity.length() > terminal_velocity):
 		velocity = terminal_velocity*velocity.normalized()
-	var collision = move_and_collide(velocity * delta)
-
-	velocity *= friction
-	if collision:
-
+	collision = move_and_collide(velocity*delta)
+	if health > 0 && collision:
 		var normal = collision.get_normal()
-		# this change fixes collisions with the capsules (angles aren't 90deg)
 		vel = -2 * velocity.dot(normal) * normal + velocity
-
 		bounce = true
 		conserving = true
 		bouncing = true
 		bounce_time(0.33)
+	velocity *= friction
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("stow"):
@@ -136,7 +138,7 @@ func bounce_time(seconds: float) -> void:
 	animPlaying = false
 	
 func recoil(sped, damage, rot) -> void:
-		vel = Vector2(-damage*sped/1000 * cos(rot),-damage*sped/1000 * sin(rot))
+		vel = gun_recoil*Vector2(-damage*sped/1000 * cos(rot),-damage*sped/1000 * sin(rot))
 		bounce = true
 		conserving = true
 		bounce_time(0.33)
@@ -188,3 +190,8 @@ func runAnims() -> void:
 func _on_momentum_timer_timeout() -> void:
 	if input_vector == Vector2.ZERO: 
 		conserving = false
+ 
+func _on_area_entered(body: Node2D) -> void: 
+	if body.is_in_group("DamageBody"):
+		health -= body.hit_damage
+		body.queue_free()
