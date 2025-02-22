@@ -37,9 +37,11 @@ func _ready() -> void:
 		gun.z_index = 2
 
 func suspicious():
+	print(personal_suspicion)
 	super.suspicious()
 
 func alerted():
+	print("ahhh")
 	gun_model.visible = true
 	guard_alerted = true
 	gun.process_mode = Node.PROCESS_MODE_INHERIT

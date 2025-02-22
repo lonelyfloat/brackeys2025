@@ -175,7 +175,7 @@ metadata/_edit_lock_ = true
 
 [node name="Guard" parent="." instance=ExtResource("6_3g210")]
 y_sort_enabled = true
-position = Vector2(-896, 634)
+position = Vector2(-389, -1488)
 ray_length = 800.0
 suspicion_threshold = 15
 
