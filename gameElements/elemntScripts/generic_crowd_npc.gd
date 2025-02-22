@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var max_health := 500.0
 @export var suspicion_threshold := 10
 @export var initial_rotation := 0.0
+@export var monitor_time := 1.5
 
 @export var color: Color
 
@@ -19,6 +20,8 @@ extends CharacterBody2D
 @onready var light := get_node("LightPivot/PointLight2D")
 @onready var collider := get_node("Area2D/CollisionShape2D")
 @onready var knocked_timer := get_node("KnockedTimer")
+@onready var nav := get_node("NavigationAgent2D")
+var player
 
 var current_path_idx := 0
 var acceptable_pt_diff := 5 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
@@ -28,7 +31,10 @@ var move_dir := Vector2.ZERO
 var health := 10.0
 
 var personal_suspicion := 0.0
-var player_in_view = false
+var player_in_view := false
+var sussing := false
+var last_sus := 0.0
+var found_guard
 
 var x_dir := 0
 var y_dir := 0
@@ -77,6 +83,7 @@ func _ready() -> void:
 	ray.target_position = Vector2(0, ray_length)
 	sprite.modulate = color
 	health = max_health
+	player = get_tree().get_first_node_in_group("Player")
 	config_light_texture()
 
 func scan_ray(delta: float) -> void: 
@@ -87,6 +94,7 @@ func scan_ray(delta: float) -> void:
 		if object != null && object.is_in_group("Player"):
 			player_in_view = true
 			if object.suspicion_level > 0: 
+				print(personal_suspicion)
 				personal_suspicion += object.suspicion_level * delta
 			break;
 
@@ -122,11 +130,11 @@ func _physics_process(delta: float) -> void:
 				else:
 					sprite.play("knockedR")
 			else:
-				if personal_suspicion == 0: 
+				if personal_suspicion == 0 || (personal_suspicion == last_sus && personal_suspicion < suspicion_threshold): 
 					move_along_path()
-				if personal_suspicion < suspicion_threshold: 
+				elif personal_suspicion < suspicion_threshold && personal_suspicion != last_sus: 
 					suspicious() 
-				if personal_suspicion >= suspicion_threshold: 
+				elif personal_suspicion >= suspicion_threshold: 
 					alerted()
 				move_dir = velocity.normalized()
 				if move_dir != Vector2.ZERO:
@@ -144,11 +152,35 @@ func _physics_process(delta: float) -> void:
 				collider.shape.set_height(60);
 
 func suspicious():
-	move_along_path()
+	if !sussing:
+		sussing = true
+		await get_tree().create_timer(monitor_time).timeout
+		if personal_suspicion < suspicion_threshold:
+			last_sus = personal_suspicion
+		move_along_path()
+		sussing = false
+	light_pivot.look_at(player.position)
 
 func alerted():
-	move_along_path()
-	suspicion_raised.emit(personal_suspicion)
+	if found_guard == null:
+		var nearest_guard_distance = position.distance_to(get_tree().get_first_node_in_group("Guards").position)
+		for guard in get_tree().get_nodes_in_group("Guards"):
+			if position.distance_to(guard.position) <= nearest_guard_distance:
+				found_guard = guard
+		
+	if !nav.is_navigation_finished():
+		var direction = Vector2.ZERO
+		direction = nav.get_next_path_position() - global_position
+		direction = direction.normalized()
+	
+		velocity = direction*speed 
+	else:
+		velocity = Vector2(0,0)
+		nav.target_position = position
+		light_pivot.look_at(player.position)
+		if last_sus != personal_suspicion:
+			last_sus = personal_suspicion
+			suspicion_raised.emit(personal_suspicion)
 
 func _notification(what: int) -> void: 
 	if what == NOTIFICATION_EDITOR_POST_SAVE:
@@ -203,8 +235,11 @@ func _on_area_entered(body: Node2D) -> void:
 
 func _on_bounce_area_entered(body: Node2D) -> void: 
 	if health > 0:
-		print("E")
 		knocked_timer.start()
 		knocked = true
 		var normal = (position - body.position).normalized()
 		knock_velocity = normal*speed
+
+func _on_path_timer_timeout() -> void:
+	if found_guard != null:
+		nav.target_position = found_guard.position

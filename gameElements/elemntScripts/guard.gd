@@ -8,14 +8,12 @@ extends GenericCrowdNPC
 @onready var gun_model := get_node("gunAnchor/gun")
 
 var guard_alerted = false
-var player
 
 func _ready() -> void:
 	super._ready()
 	armR.visible = false
 	armL.visible = false
 	gun_model.visible = false
-	player = get_tree().get_first_node_in_group("Player")
 	gun.process_mode = Node.PROCESS_MODE_DISABLED
 	if x_dir > 0:
 		gun_model.scale.y = -0.047
@@ -45,7 +43,9 @@ func alerted():
 	gun_model.visible = true
 	guard_alerted = true
 	gun.process_mode = Node.PROCESS_MODE_INHERIT
-	super.alerted()
+	if last_sus != personal_suspicion:
+		last_sus = personal_suspicion
+		suspicion_raised.emit(personal_suspicion)
 
 
 func _process(_delta: float) -> void:

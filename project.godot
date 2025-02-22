@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Player="is the player"
 NPCs="Non-player characters"
 DamageBody=""
+Guards=""
 
 [input]
 
