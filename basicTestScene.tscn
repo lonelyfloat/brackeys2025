@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dlfc70llby0lg" path="res://iconOfMan.png" id="3_6vjxd"]
 [ext_resource type="PackedScene" uid="uid://x1ml0delfs2" path="res://gameElements/suspicion_manager.tscn" id="4_54eyk"]
 [ext_resource type="TileSet" uid="uid://wg4j4s5kbe5v" path="res://new_tile_set.tres" id="5_jdqnp"]
+[ext_resource type="PackedScene" uid="uid://b5q861hmdww1f" path="res://gameElements/guard.tscn" id="6_3g210"]
 [ext_resource type="AudioStream" uid="uid://df5mxxtbx2oiy" path="res://brackeys25.wav" id="8_5p8lu"]
 
 [sub_resource type="Gradient" id="Gradient_3lkcd"]
@@ -26,6 +27,10 @@ script = ExtResource("1_pnl52")
 
 [node name="Player" parent="." instance=ExtResource("1_8ur0g")]
 position = Vector2(41, -82)
+bounce_power = 1.33
+terminal_velocity = 600
+max_health = 100.0
+gun_recoil = 5.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Player"]
 
@@ -88,6 +93,7 @@ info_UI = NodePath("../Player/CanvasLayer")
 [node name="tles" type="Node2D" parent="."]
 position = Vector2(786, 827)
 scale = Vector2(0.17, 0.17)
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="tles"]
 light_mask = 2
@@ -118,3 +124,17 @@ stream = ExtResource("8_5p8lu")
 volume_db = -3.0
 autoplay = true
 playback_type = 1
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.34, 0.3094, 0.33694, 1)
+
+[node name="Guard" parent="." instance=ExtResource("6_3g210")]
+position = Vector2(-568, 498)
+view_cone_angle = 15.0
+ray_length = 500.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_right = 250.0
+offset_bottom = 84.0

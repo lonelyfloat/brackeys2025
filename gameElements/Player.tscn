@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b82xyl2dqnwky"]
+[gd_scene load_steps=44 format=3 uid="uid://b82xyl2dqnwky"]
 
 [ext_resource type="Script" path="res://gameElements/elemntScripts/player.gd" id="1_xki20"]
 [ext_resource type="Texture2D" uid="uid://d2sjfw4jj2jjt" path="res://playerArt/Spritesheet.png" id="2_sbp8o"]
@@ -292,6 +292,10 @@ modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_i7kln")
 radius = 24.5
 height = 140.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nlhnp"]
+radius = 13.0
+height = 42.0
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 motion_mode = 1
 script = ExtResource("1_xki20")
@@ -308,7 +312,7 @@ z_index = 2
 position = Vector2(42, 45)
 rotation = -2.00129
 script = ExtResource("3_3my5u")
-muzzle_velocity = 2000.0
+damage = 200.0
 reload_time = 1.0
 
 [node name="handTargetR" type="Node2D" parent="SniberAnchor"]
@@ -385,6 +389,7 @@ position = Vector2(20, 40)
 texture = ExtResource("6_h0onb")
 
 [node name="armL" type="Node2D" parent="."]
+visible = false
 z_index = 4
 scale = Vector2(0.15, 0.15)
 
@@ -449,11 +454,20 @@ process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_1jg3a")
-
 [node name="MomentumTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_1jg3a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 57)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_nlhnp")
+
 [connection signal="timeout" from="MomentumTimer" to="." method="_on_momentum_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_entered"]

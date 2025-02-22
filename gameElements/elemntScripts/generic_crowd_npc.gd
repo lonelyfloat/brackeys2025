@@ -17,7 +17,7 @@ extends CharacterBody2D
 @onready var ray := get_node("RayCast2D")
 @onready var light_pivot := get_node("LightPivot")
 @onready var light := get_node("LightPivot/PointLight2D")
-@onready var collider := get_node("CollisionShape2D")
+@onready var collider := get_node("Area2D/CollisionShape2D")
 @onready var knocked_timer := get_node("KnockedTimer")
 
 var current_path_idx := 0
@@ -133,20 +133,7 @@ func _physics_process(delta: float) -> void:
 					light_pivot.rotation = lerp(light_pivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
 			runAnims(move_dir)
 			scan_ray(delta)
-			var collision = move_and_collide(velocity * delta)
-			if collision: 
-				var object = collision.get_collider()
-				if object.is_in_group("DamageBody"):
-					health -= object.hit_damage
-					object.queue_free()
-				if health > 0:
-					knocked_timer.start()
-					knocked = true
-					var normal = collision.get_normal()
-					knock_velocity = normal*speed
-					#print(knock_velocity)
-		
-
+			move_and_slide()
 		if health <= 0: # when you're dead:
 			light.enabled = false
 			ray.enabled = false
@@ -203,3 +190,21 @@ func runAnims(input_vector: Vector2) -> void:
 func _on_knocked_timer_timeout() -> void:
 	knocked = false
 	animPlaying = false
+
+func _on_area_entered(body: Node2D) -> void:
+	if body.is_in_group("DamageBody"):
+		health -= body.hit_damage
+		body.queue_free()
+		if health > 0:
+			knocked_timer.start()
+			knocked = true
+			var normal = (position - body.position).normalized()
+			knock_velocity = normal*speed
+
+func _on_bounce_area_entered(body: Node2D) -> void: 
+	if health > 0:
+		print("E")
+		knocked_timer.start()
+		knocked = true
+		var normal = (position - body.position).normalized()
+		knock_velocity = normal*speed
