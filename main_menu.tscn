@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://du7rgpvw1adtc"]
+
+[ext_resource type="FontFile" uid="uid://bqudrevhbg17g" path="res://Impacted2.0.ttf" id="1_1fql0"]
+[ext_resource type="Texture2D" path="res://stupid_button_tex.tres" id="2_8bmlf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2rhsa"]
+line_spacing = 1.0
+font = ExtResource("1_1fql0")
+font_size = 100
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(7, 7)
+
+[sub_resource type="Gradient" id="Gradient_4ha3x"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.371008, 0.256106, 0.530203, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8xkww"]
+gradient = SubResource("Gradient_4ha3x")
+
+[sub_resource type="Gradient" id="Gradient_3tq8j"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.528996, 0.44126, 0.626496, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yv70e"]
+gradient = SubResource("Gradient_3tq8j")
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.34, 0.3094, 0.33694, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 44.0
+offset_top = 27.0
+offset_right = 1108.0
+offset_bottom = 148.0
+text = "WoRlD's wOrST aSsAsSiN"
+label_settings = SubResource("LabelSettings_2rhsa")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(113, -595)
+shadow_enabled = true
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 181.0
+offset_top = 215.0
+offset_right = 917.0
+offset_bottom = 319.0
+texture_normal = ExtResource("2_8bmlf")
+texture_pressed = SubResource("GradientTexture2D_8xkww")
+texture_hover = SubResource("GradientTexture2D_yv70e")
+texture_disabled = ExtResource("2_8bmlf")
+texture_focused = ExtResource("2_8bmlf")
+ignore_texture_size = true
+stretch_mode = 0
