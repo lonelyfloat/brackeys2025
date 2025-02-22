@@ -14,6 +14,7 @@ var loaded = true
 var bullet = preload("res://gameElements/fired_bullet.tscn")
 
 @onready var sniber := $Sniber
+@onready var ray := $Sniber/RayCast2D
 @onready var me := $".."
 @onready var spawnblt = $Sniber/bulletSpawnTarget
 
@@ -28,7 +29,7 @@ func _process(_delta: float) -> void:
 		sniber.scale.y = -0.13
 	look_at(get_global_mouse_position())
 	
-	if Input.is_action_pressed("fire") && loaded:
+	if Input.is_action_pressed("fire") && loaded && !ray.is_colliding():
 		var shot = bullet.instantiate()
 		shot.hit_damage = damage
 		shot.speed = muzzle_velocity

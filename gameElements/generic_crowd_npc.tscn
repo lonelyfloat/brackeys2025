@@ -12,8 +12,13 @@ data = {
 "width": 114
 }
 
+<<<<<<< HEAD
 [sub_resource type="ImageTexture" id="ImageTexture_uki3v"]
 image = SubResource("Image_nfwq7")
+=======
+[sub_resource type="ImageTexture" id="ImageTexture_13pqe"]
+image = SubResource("Image_d51cj")
+>>>>>>> 6773f15bc61267daa32550393e88d7842cc683b5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_214nc"]
 radius = 28.0
@@ -39,7 +44,11 @@ color = Color(0.703277, 0.462316, 0.558383, 1)
 [node name="PointLight2D" type="PointLight2D" parent="LightPivot"]
 energy = 0.51
 shadow_enabled = true
+<<<<<<< HEAD
 texture = SubResource("ImageTexture_uki3v")
+=======
+texture = SubResource("ImageTexture_13pqe")
+>>>>>>> 6773f15bc61267daa32550393e88d7842cc683b5
 texture_scale = 3.0
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
