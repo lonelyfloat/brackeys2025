@@ -310,7 +310,6 @@ sprite_frames = SubResource("SpriteFrames_326wc")
 animation = &"idleF"
 
 [node name="SniberAnchor" type="Node2D" parent="."]
-z_index = 2
 position = Vector2(42, 45)
 rotation = -2.00129
 script = ExtResource("3_3my5u")
@@ -330,6 +329,11 @@ offset = Vector2(740, -126.855)
 [node name="bulletSpawnTarget" type="Node2D" parent="SniberAnchor/Sniber"]
 position = Vector2(1800, -115)
 scale = Vector2(7.69231, 7.69231)
+
+[node name="RayCast2D" type="RayCast2D" parent="SniberAnchor/Sniber"]
+position = Vector2(242.845, -114.76)
+scale = Vector2(7.69231, 7.69231)
+target_position = Vector2(206.662, -1.93211)
 
 [node name="armR" type="Node2D" parent="."]
 z_index = 4

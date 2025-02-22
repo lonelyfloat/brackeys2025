@@ -111,28 +111,28 @@ func _process(_delta: float) -> void:
 			sniber.scale.y = -0.13
 			gun.position = Vector2(0,50)
 			gun.rotation_degrees = -115
-			gun.z_index = -2
+			#gun.z_index = -2
 		elif x_dir < 0:
 			sniber.scale.y = 0.13
 			gun.position = Vector2(10,50)
 			gun.rotation_degrees = -70
-			gun.z_index = -2
+			#gun.z_index = -2
 		elif y_dir < 0:
 			sniber.scale.y = 0.13
 			gun.position = Vector2(-24,47)
 			gun.rotation_degrees = -60
-			gun.z_index = -2
+			#gun.z_index = -2
 		elif y_dir > 0:
 			sniber.scale.y = -0.13
 			gun.position = Vector2(24,44)
 			gun.rotation_degrees = -121
-			gun.z_index = 2
+			#gun.z_index = 2
 	else:
 		gun.process_mode = Node.PROCESS_MODE_INHERIT
-		if y_dir > 0:
-			gun.z_index = -2
-		else:
-			gun.z_index = 2
+		#if y_dir > 0:
+			#gun.z_index = -2
+		#else:
+			#gun.z_index = 2
 			
 		gun.position = Vector2(0,-21)
 
@@ -171,8 +171,8 @@ func runAnims() -> void:
 			sprite.play("idleL")
 		elif(y_dir > 0):
 			sprite.play("idleB")
-			armR.z_index = -4
-			armL.z_index = -4
+			armR.z_index = -2
+			armL.z_index = -2
 		elif(y_dir < 0):
 			sprite.play("idleF")
 		else:
@@ -187,8 +187,8 @@ func runAnims() -> void:
 		elif(input_vector.y < 0):
 			sprite.play("moveB")
 			y_dir = 1
-			armR.z_index = -4
-			armL.z_index = -4
+			armR.z_index = -2
+			armL.z_index = -2
 
 
 func _on_momentum_timer_timeout() -> void:
@@ -197,6 +197,5 @@ func _on_momentum_timer_timeout() -> void:
  
 func _on_area_entered(body: Node2D) -> void: 
 	if body.is_in_group("DamageBody"):
-		print("damage")
 		health -= body.hit_damage
 		body.queue_free()

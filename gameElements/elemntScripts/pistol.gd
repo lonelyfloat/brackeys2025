@@ -31,7 +31,6 @@ func _process(_delta: float) -> void:
 		gun.scale.y = -0.047
 	look_at(player.position)
 	if me.player_in_view:
-		print("visible")
 		shoot = true
 	else:
 		shoot = false

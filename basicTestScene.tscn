@@ -126,6 +126,7 @@ info_UI = NodePath("../Player/CanvasLayer")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_ctc2h")
+metadata/_edit_lock_ = true
 
 [node name="tles" type="Node2D" parent="NavigationRegion2D"]
 y_sort_enabled = true
@@ -146,6 +147,7 @@ metadata/_edit_lock_ = true
 [node name="invisiblewalls" type="TileMapLayer" parent="NavigationRegion2D/tles"]
 tile_map_data = PackedByteArray("AAD1/wAAAQAAAAoAAAD0/wAAAQAAAAoAAADz/wAAAQAAAAoAAADy/wAAAQAAAAoAAADz/wEAAQAAAAoAAAD0/wEAAQAAAAoAAAD0/wIAAQAAAAoAAAD0/wMAAQAAAAoAAAD0/wQAAQAAAAoAAADz/wQAAQAAAAoAAADz/wMAAQAAAAoAAADz/wIAAQAAAAoAAAD8/wMAAQAAAAoAAAD7/wMAAQAAAAoAAAD6/wMAAQAAAAoAAAD6/wIAAQAAAAoAAAD7/wIAAQAAAAoAAAD7/wEAAQAAAAoAAAD6/wEAAQAAAAoAAAD6/wAAAQAAAAoAAAD7/wAAAQAAAAoAAAD5/wAAAQAAAAoAAAD7////AQAAAAoAAAD7//7/AQAAAAoAAAD7//3/AQAAAAoAAAADAPb/AQAAAAoAAAADAPf/AQAAAAoAAAACAPf/AQAAAAoAAAABAPf/AQAAAAoAAAAAAPf/AQAAAAoAAAD///f/AQAAAAoAAAD+//f/AQAAAAoAAAD9//f/AQAAAAoAAAD8//f/AQAAAAoAAAD7//f/AQAAAAoAAAD7//b/AQAAAAoAAAD6//f/AQAAAAoAAAA=")
 tile_set = ExtResource("5_jdqnp")
+metadata/_edit_lock_ = true
 
 [node name="FloorTiles" type="TileMapLayer" parent="NavigationRegion2D/tles"]
 z_index = -2
@@ -178,12 +180,14 @@ ray_length = 800.0
 suspicion_threshold = 15
 
 [node name="GenericCrowdNPC" parent="." instance=ExtResource("8_xk3wj")]
+visible = false
 position = Vector2(4, 224)
 view_cone_angle = 20.0
 ray_length = 600.0
 suspicion_threshold = 0
 
 [node name="Target" parent="." instance=ExtResource("9_w8fw3")]
+visible = false
 position = Vector2(-533, 1737)
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]

@@ -86,14 +86,13 @@ func _ready() -> void:
 	config_light_texture()
 
 func scan_ray(delta: float) -> void: 
-	var view_angle = atan2(move_dir.y, move_dir.x)
+	var view_angle = light_pivot.rotation
 	for i in range(int(floor(-view_cone_angle)), int(floor(view_cone_angle))):
 		ray.target_position = ray_length * Vector2(cos(view_angle + deg_to_rad(i*1.0)),sin(view_angle + deg_to_rad(i*1.0))) 
 		var object = ray.get_collider()
 		if object != null && object.is_in_group("Player"):
 			player_in_view = true
 			if object.suspicion_level > 0: 
-				print(personal_suspicion)
 				personal_suspicion += object.suspicion_level * delta
 			break;
 
