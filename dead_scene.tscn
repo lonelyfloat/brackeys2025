@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ced3q2akfluvh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y7fyj"]
+font_size = 70
+
+[node name="DeadScene" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 426.0
+offset_top = 237.0
+offset_right = 629.0
+offset_bottom = 381.0
+text = "dead"
+label_settings = SubResource("LabelSettings_y7fyj")
