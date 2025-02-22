@@ -1,12 +1,9 @@
-[gd_scene load_steps=11 format=4 uid="uid://daurrc68lmhxg"]
+[gd_scene load_steps=8 format=4 uid="uid://daurrc68lmhxg"]
 
 [ext_resource type="PackedScene" uid="uid://b82xyl2dqnwky" path="res://gameElements/Player.tscn" id="1_8ur0g"]
 [ext_resource type="Script" path="res://gameElements/elemntScripts/world.gd" id="1_pnl52"]
-[ext_resource type="PackedScene" uid="uid://b4dbq86g112nn" path="res://gameElements/generic_crowd_npc.tscn" id="2_h48vl"]
-[ext_resource type="PackedScene" uid="uid://b5q861hmdww1f" path="res://gameElements/guard.tscn" id="4_8b8dl"]
 [ext_resource type="PackedScene" uid="uid://x1ml0delfs2" path="res://gameElements/suspicion_manager.tscn" id="4_54eyk"]
 [ext_resource type="TileSet" uid="uid://wg4j4s5kbe5v" path="res://new_tile_set.tres" id="5_jdqnp"]
-[ext_resource type="PackedScene" uid="uid://c7dpgncynh35w" path="res://gameElements/target.tscn" id="7_y3jrw"]
 [ext_resource type="AudioStream" uid="uid://df5mxxtbx2oiy" path="res://brackeys25.wav" id="8_5p8lu"]
 
 [sub_resource type="Gradient" id="Gradient_hmnqv"]
@@ -20,20 +17,9 @@ gradient = SubResource("Gradient_hmnqv")
 script = ExtResource("1_pnl52")
 
 [node name="Player" parent="." instance=ExtResource("1_8ur0g")]
-visible = false
 position = Vector2(41, -82)
 
-[node name="GenericCrowdNPC" parent="." instance=ExtResource("2_h48vl")]
-visible = false
-position = Vector2(-374, -209)
-path = Array[Vector2]([Vector2(200, 0), Vector2(400, 100), Vector2(0, 50)])
-light_texture_scale = 2
-view_cone_angle = 15.0
-ray_length = 500.0
-color = Color(0.872069, 0.798579, 0.997915, 1)
-
 [node name="SuspicionManager" parent="." instance=ExtResource("4_54eyk")]
-visible = false
 position = Vector2(200, -5)
 
 [node name="tles" type="Node2D" parent="."]
@@ -68,23 +54,11 @@ scale = Vector2(1, 1)
 tile_map_data = PackedByteArray("AAD8/+v/AQAEAAgAAAD//+v/AQAEAAgAAADr/+r/AQAEAAoAAADr//H/AQAAAAMAAADr//L/AQABAAcAAAD3//H/AQABAAkAAADw//X/AQAEAAoAAAD1//X/AQAEAAoAAAD+//X/AQABAAkAAAD///X/AQADAAkAAAAAAPX/AQACAAkAAAD8//L/AQAAAAcAAAACAPL/AQAAAAcAAADx//r/AQACAAkAAAD2//r/AQACAAkAAADw//n/AQAEAAkAAAD1//n/AQAEAAkAAAD1//r/AQADAAkAAADw//r/AQADAAkAAAD0//7/AQAEAAoAAAD1//7/AQAEAAgAAADy//r/AQAAAAcAAADp//T/AQAAAAcAAAACAAEAAQAAAAMAAAAGAAEAAQAEAAgAAAACAP7/AQAEAAgAAAAGAP7/AQAAAAMAAAAGAPv/AQAAAAMAAAACAPv/AQAEAAgAAAAHAP//AQAAAAUAAAADAPz/AQAAAAUAAAAFAP//AQACAAEAAAABAPz/AQACAAEAAAABAAIAAQACAAEAAAABAP//AQACAAEAAAAGAAAAAQABAAEAAAACAP3/AQABAAEAAAAFAPz/AQACAAEAAAADAP//AQAAAAUAAAAHAAIAAQAAAAUAAAD7//P/AQAAAAEAAAD6/+r/AQAAAAEAAADu//v/AQAAAAEAAAADAPr/AQACAAUAAAACAPr/AQAAAAEAAAD8//7/AQAAAAcAAAAGAPP/AQAAAAcAAAD//wgAAQACAAUAAADv/wUAAQABAAMAAADv/wYAAQABAAMAAADv/wcAAQABAAMAAADx/wUAAQABAAMAAADx/wYAAQABAAMAAADx/wcAAQABAAMAAAD2/wUAAQABAAMAAAD2/wYAAQABAAMAAAD2/wcAAQABAAMAAAD4/wUAAQABAAMAAAD4/wYAAQABAAMAAAD4/wcAAQABAAMAAADv/wgAAQABAAEAAADx/wgAAQABAAEAAAD2/wgAAQABAAEAAAD4/wgAAQABAAEAAAA=")
 tile_set = ExtResource("5_jdqnp")
 
-[node name="Target" parent="." instance=ExtResource("7_y3jrw")]
-visible = false
-position = Vector2(1087, 151)
-max_health = 1.0
-color = Color(0.972549, 0, 0, 1)
-
 [node name="BasicTestScene" type="Node2D" parent="."]
 visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_5p8lu")
+volume_db = -3.0
 autoplay = true
 playback_type = 1
-
-[node name="Guard" parent="." instance=ExtResource("4_8b8dl")]
-visible = false
-position = Vector2(502, 98)
-color = Color(0.0339421, 0.221022, 0.181113, 1)
-
-[connection signal="target_dead" from="Target" to="." method="_on_target_dead"]
