@@ -104,7 +104,7 @@ z_index = -50
 y_sort_enabled = true
 texture_filter = 2
 position = Vector2(-4429.41, -4823.53)
-scale = Vector2(1940.71, -542.665)
+scale = Vector2(701.776, 547.791)
 texture = SubResource("GradientTexture2D_qywuv")
 
 [node name="FloorTiles" type="TileMapLayer" parent="tles"]
