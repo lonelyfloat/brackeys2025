@@ -205,8 +205,28 @@ position = Vector2(-1421, 585)
 max_health = 100.0
 initial_rotation = -90.0
 
+[node name="GenericCrowdNPC13" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(-681, 1641)
+max_health = 100.0
+initial_rotation = -90.0
+
+[node name="GenericCrowdNPC15" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(1142, 467)
+max_health = 100.0
+initial_rotation = -90.0
+
+[node name="GenericCrowdNPC16" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(-254, 255)
+max_health = 100.0
+initial_rotation = -90.0
+
 [node name="GenericCrowdNPC4" parent="." instance=ExtResource("8_xk3wj")]
 position = Vector2(-1437, 220)
+max_health = 100.0
+initial_rotation = 90.0
+
+[node name="GenericCrowdNPC14" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(63, 1290)
 max_health = 100.0
 initial_rotation = 90.0
 
@@ -252,6 +272,17 @@ path = Array[Vector2]([Vector2(-792, 255), Vector2(-712, 273), Vector2(-572, 404
 position = Vector2(-1302, -481)
 path = Array[Vector2]([Vector2(-1348, -461), Vector2(-815, -485), Vector2(-836, -1218), Vector2(-1335, -1230)])
 max_health = 200.0
+
+[node name="GenericCrowdNPC12" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(678, 940)
+path = Array[Vector2]([Vector2(627, 871), Vector2(1359, 883), Vector2(1348, 295), Vector2(686, 312), Vector2(678, 940)])
+
+[node name="Guard6" parent="." instance=ExtResource("6_3g210")]
+position = Vector2(648, -1218)
+path = Array[Vector2]([Vector2(653, -1216), Vector2(653, -1491), Vector2(381, -1499), Vector2(205, -1406), Vector2(-113, -1507), Vector2(-679, -1251), Vector2(-706, -553), Vector2(271, -481), Vector2(528, -420), Vector2(824, -620), Vector2(1416, -413), Vector2(1430, 179), Vector2(1352, 346), Vector2(1352, 585), Vector2(782, 624), Vector2(736, 1518), Vector2(291, 1539), Vector2(173, 1778), Vector2(-971, 1799)])
+ray_length = 700.0
+suspicion_threshold = 5
+initial_rotation = 180.0
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="target_dead" from="Target" to="." method="_on_target_dead"]
