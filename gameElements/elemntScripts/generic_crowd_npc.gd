@@ -26,7 +26,7 @@ var player
 var current_path_idx := 0
 var acceptable_pt_diff := 5 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
 var moving_path_forward := true
-var move_dir := Vector2.ZERO
+var move_dir: Vector2
 
 var health := 10.0
 
@@ -135,10 +135,10 @@ func _physics_process(delta: float) -> void:
                     suspicious() 
                 elif personal_suspicion >= suspicion_threshold: 
                     alerted()
-                move_dir = velocity.normalized()
-                if move_dir != Vector2.ZERO:
+                if velocity.normalized() != Vector2.ZERO:
+                    move_dir = velocity.normalized()
                     light_pivot.rotation = lerp(light_pivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
-            runAnims(move_dir)
+            runAnims(velocity.normalized())
             scan_ray(delta)
             move_and_slide()
         if health <= 0: # when you're dead:
@@ -184,6 +184,7 @@ func alerted():
 func _notification(what: int) -> void: 
     if what == NOTIFICATION_EDITOR_POST_SAVE:
         queue_redraw()
+        move_dir = Vector2(cos(deg_to_rad(initial_rotation)),sin(deg_to_rad(initial_rotation))) 
         config_light_texture()
 
 func runAnims(input_vector: Vector2) -> void:
