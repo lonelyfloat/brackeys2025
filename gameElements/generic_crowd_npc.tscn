@@ -12,8 +12,8 @@ data = {
 "width": 102
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_vkgxn"]
-image = SubResource("Image_jerb2")
+[sub_resource type="ImageTexture" id="ImageTexture_xd0nd"]
+image = SubResource("Image_d22s6")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_214nc"]
 radius = 28.0
@@ -39,6 +39,7 @@ color = Color(0.703277, 0.462316, 0.558383, 1)
 energy = 0.51
 shadow_enabled = true
 texture = SubResource("ImageTexture_vkgxn")
+texture = SubResource("ImageTexture_xpmow")
 texture_scale = 5.0
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]

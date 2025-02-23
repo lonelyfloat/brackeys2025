@@ -1,14 +1,51 @@
-[gd_scene load_steps=2 format=3 uid="uid://csya0mnkriad0"]
+[gd_scene load_steps=8 format=3 uid="uid://csya0mnkriad0"]
+
+[ext_resource type="FontFile" uid="uid://bqudrevhbg17g" path="res://Impacted2.0.ttf" id="1_ax4ww"]
+[ext_resource type="Script" path="res://gameElements/elemntScripts/dead_scene.gd" id="1_u1ich"]
+[ext_resource type="Texture2D" uid="uid://ddsfrw01ghspg" path="res://sam_dumb_buttons/play1.png" id="2_bhb0g"]
+[ext_resource type="Texture2D" uid="uid://d4eowjg6lrof8" path="res://sam_dumb_buttons/play2.png" id="3_nw35a"]
+[ext_resource type="Texture2D" uid="uid://oaqr1ls5cq02" path="res://sam_dumb_buttons/quit1.png" id="4_82wmg"]
+[ext_resource type="Texture2D" uid="uid://cm44xu6fp43on" path="res://sam_dumb_buttons/quit2.png" id="5_acwid"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_js0od"]
-font_size = 70
+font = ExtResource("1_ax4ww")
+font_size = 120
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(4, 4)
 
 [node name="WinScene" type="Node2D"]
+script = ExtResource("1_u1ich")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 465.0
-offset_top = 249.0
-offset_right = 705.0
-offset_bottom = 377.0
+offset_left = 396.0
+offset_top = 38.0
+offset_right = 707.0
+offset_bottom = 183.0
 text = "yippee"
 label_settings = SubResource("LabelSettings_js0od")
+
+[node name="PlayButton" type="TextureButton" parent="."]
+offset_left = 72.0
+offset_top = 488.0
+offset_right = 271.0
+offset_bottom = 577.0
+texture_normal = ExtResource("2_bhb0g")
+texture_pressed = ExtResource("3_nw35a")
+texture_hover = ExtResource("2_bhb0g")
+texture_disabled = ExtResource("2_bhb0g")
+texture_focused = ExtResource("2_bhb0g")
+
+[node name="QuitButton" type="TextureButton" parent="."]
+offset_left = 848.0
+offset_top = 480.0
+offset_right = 1045.0
+offset_bottom = 580.0
+texture_normal = ExtResource("4_82wmg")
+texture_pressed = ExtResource("5_acwid")
+texture_hover = ExtResource("4_82wmg")
+texture_disabled = ExtResource("4_82wmg")
+texture_focused = ExtResource("4_82wmg")
+
+[connection signal="button_down" from="PlayButton" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="QuitButton" to="." method="_on_quit_button_down"]
