@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://du7rgpvw1adtc"]
+
+[ext_resource type="FontFile" uid="uid://bqudrevhbg17g" path="res://Impacted2.0.ttf" id="1_1fql0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2rhsa"]
+line_spacing = 1.0
+font = ExtResource("1_1fql0")
+font_size = 100
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(7, 7)
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.34, 0.3094, 0.33694, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 44.0
+offset_top = 27.0
+offset_right = 1108.0
+offset_bottom = 148.0
+text = "WoRlD's wOrST aSsAsSiN"
+label_settings = SubResource("LabelSettings_2rhsa")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(113, -595)
+shadow_enabled = true
