@@ -73,3 +73,20 @@ func _process(_delta: float) -> void:
 			else:
 				armR.visible = false
 				armL.visible = true
+				
+		if !nav.is_navigation_finished():
+			var direction = Vector2.ZERO
+			direction = nav.get_next_path_position() - global_position
+			direction = direction.normalized()
+		
+			velocity = direction*speed 
+		else:
+			velocity = Vector2(0,0)
+			nav.target_position = position
+			light_pivot.look_at(player.position)
+			if last_sus != personal_suspicion:
+				last_sus = personal_suspicion
+				suspicion_raised.emit(personal_suspicion)
+
+func _on_path_timer_timeout() -> void:
+	nav.target_position = player.position

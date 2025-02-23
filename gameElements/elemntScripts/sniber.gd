@@ -39,6 +39,7 @@ func _process(_delta: float) -> void:
 		me.get_parent().add_child(shot)
 		me.recoil(muzzle_velocity, damage, shot.rotation)
 		loaded_ammo -= 1
+		me.suspicion_level = 100
 		if loaded_ammo <= 0:
 			reload(reload_time, true)
 		else:
@@ -52,3 +53,4 @@ func reload(seconds: float, loading: bool) -> void:
 	if loading:
 		loaded_ammo = clip_size
 	loaded = true
+	me.suspicion_level = 4
