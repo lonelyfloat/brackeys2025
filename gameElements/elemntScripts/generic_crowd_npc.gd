@@ -26,7 +26,7 @@ var player
 var current_path_idx := 0
 var acceptable_pt_diff := 5 # this value will need to be adjusted as we go - represents 'how close' an npc can be to a point
 var moving_path_forward := true
-var move_dir := Vector2.ZERO
+var move_dir: Vector2
 
 var health := 10.0
 
@@ -118,37 +118,37 @@ func move_along_path() -> void:
 			current_path_idx -= 1
 
 func _physics_process(delta: float) -> void:
-	if not Engine.is_editor_hint():
-		player_in_view = false
-		if health > 0:
-			if knocked:
-				animPlaying = true
-				velocity = knock_velocity
-				if velocity.x < 0:
-					sprite.play("knockedL")
-				else:
-					sprite.play("knockedR")
-			else:
-				if personal_suspicion == 0 || (personal_suspicion == last_sus && personal_suspicion < suspicion_threshold): 
-					move_along_path()
-				elif personal_suspicion < suspicion_threshold && personal_suspicion != last_sus: 
-					suspicious() 
-				elif personal_suspicion >= suspicion_threshold: 
-					alerted()
-				move_dir = velocity.normalized()
-				if move_dir != Vector2.ZERO:
-					light_pivot.rotation = lerp(light_pivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
-			runAnims(move_dir)
-			scan_ray(delta)
-			move_and_slide()
-		if health <= 0: # when you're dead:
-			light.enabled = false
-			ray.enabled = false
-			if !animPlaying: 
-				sprite.play("die")
-				animPlaying = true
-				collider.position = Vector2(0, 28)
-				collider.shape.set_height(60);
+    if not Engine.is_editor_hint():
+        player_in_view = false
+        if health > 0:
+            if knocked:
+                animPlaying = true
+                velocity = knock_velocity
+                if velocity.x < 0:
+                    sprite.play("knockedL")
+                else:
+                    sprite.play("knockedR")
+            else:
+                if personal_suspicion == 0 || (personal_suspicion == last_sus && personal_suspicion < suspicion_threshold): 
+                    move_along_path()
+                elif personal_suspicion < suspicion_threshold && personal_suspicion != last_sus: 
+                    suspicious() 
+                elif personal_suspicion >= suspicion_threshold: 
+                    alerted()
+                if velocity.normalized() != Vector2.ZERO:
+                    move_dir = velocity.normalized()
+                    light_pivot.rotation = lerp(light_pivot.rotation, atan2(move_dir.y, move_dir.x), 0.2)
+            runAnims(velocity.normalized())
+            scan_ray(delta)
+            move_and_slide()
+        if health <= 0: # when you're dead:
+            light.enabled = false
+            ray.enabled = false
+            if !animPlaying: 
+                sprite.play("die")
+                animPlaying = true
+                collider.position = Vector2(0, 28)
+                collider.shape.set_height(60);
 
 func suspicious():
 	if !sussing:
@@ -182,9 +182,10 @@ func alerted():
 			suspicion_raised.emit(personal_suspicion)
 
 func _notification(what: int) -> void: 
-	if what == NOTIFICATION_EDITOR_POST_SAVE:
-		queue_redraw()
-		config_light_texture()
+    if what == NOTIFICATION_EDITOR_POST_SAVE:
+        queue_redraw()
+        move_dir = Vector2(cos(deg_to_rad(initial_rotation)),sin(deg_to_rad(initial_rotation))) 
+        config_light_texture()
 
 func runAnims(input_vector: Vector2) -> void:
 	if animPlaying:
