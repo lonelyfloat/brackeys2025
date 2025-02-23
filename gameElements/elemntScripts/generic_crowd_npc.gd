@@ -87,16 +87,16 @@ func _ready() -> void:
 	config_light_texture()
 
 func scan_ray(delta: float) -> void: 
-    var view_angle = atan2(move_dir.y, move_dir.x)
-    for i in range(int(floor(-view_cone_angle)), int(floor(view_cone_angle))):
-        ray.target_position = ray_length * Vector2(cos(view_angle + deg_to_rad(i*1.0)),sin(view_angle + deg_to_rad(i*1.0))) 
-        var object = ray.get_collider()
-        if object != null && object.is_in_group("Player"):
-            var pl = object.get_parent()
-            player_in_view = true
-            if pl.suspicion_level > 0: 
-                personal_suspicion += pl.suspicion_level * delta
-            break;
+	var view_angle = atan2(move_dir.y, move_dir.x)
+	for i in range(int(floor(-view_cone_angle)), int(floor(view_cone_angle))):
+		ray.target_position = ray_length * Vector2(cos(view_angle + deg_to_rad(i*1.0)),sin(view_angle + deg_to_rad(i*1.0))) 
+		var object = ray.get_collider()
+		if object != null && object.is_in_group("Player"):
+			var pl = object.get_parent()
+			player_in_view = true
+			if pl.suspicion_level > 0: 
+				personal_suspicion += pl.suspicion_level * delta
+			break;
 
 func move_along_path() -> void:
 	if path.size() == 0:
