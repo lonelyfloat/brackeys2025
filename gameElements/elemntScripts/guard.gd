@@ -11,6 +11,8 @@ var guard_alerted = false
 
 func _ready() -> void:
 	super._ready()
+	armR.modulate = color
+	armL.modulate = color
 	armR.visible = false
 	armL.visible = false
 	gun_model.visible = false

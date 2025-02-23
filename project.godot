@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Brackeys2025"
-run/main_scene="res://basicTestScene.tscn"
+config/name="John Stock"
+run/main_scene="res://main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/show_image=false
+config/icon="res://iconOfMan.png"
 
 [global_group]
 
