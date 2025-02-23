@@ -159,7 +159,7 @@ text_direction = 2
 
 [node name="Guard" parent="." instance=ExtResource("6_3g210")]
 y_sort_enabled = true
-position = Vector2(329, -1418)
+position = Vector2(74, -1302)
 light_texture_scale = 3
 
 [node name="NavigationRegion2D2" type="NavigationRegion2D" parent="."]
@@ -182,9 +182,11 @@ ray_length = 600.0
 suspicion_threshold = 0
 
 [node name="Target" parent="." instance=ExtResource("9_w8fw3")]
-position = Vector2(-533, 1737)
+position = Vector2(518, 2334)
 light_texture_scale = 3
-ray_length = 200.0
+view_cone_angle = 0.0
+ray_length = 0.0
+initial_rotation = 90.0
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="target_dead" from="Target" to="." method="_on_target_dead"]
