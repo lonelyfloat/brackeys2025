@@ -16,6 +16,8 @@ radius = 8.0
 height = 22.0
 
 [node name="FiredBullet" type="RigidBody2D" groups=["DamageBody"]]
+collision_layer = 3
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_63sra")
 gravity_scale = 0.0
 script = ExtResource("1_uqq3c")

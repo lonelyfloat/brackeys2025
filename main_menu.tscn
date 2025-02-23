@@ -22,6 +22,7 @@ offset_right = 1108.0
 offset_bottom = 148.0
 text = "WoRlD's wOrST aSsAsSiN"
 label_settings = SubResource("LabelSettings_2rhsa")
+metadata/_edit_use_anchors_ = true
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 position = Vector2(113, -595)

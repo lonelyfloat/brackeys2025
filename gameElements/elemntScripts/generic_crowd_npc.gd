@@ -92,9 +92,10 @@ func scan_ray(delta: float) -> void:
         ray.target_position = ray_length * Vector2(cos(view_angle + deg_to_rad(i*1.0)),sin(view_angle + deg_to_rad(i*1.0))) 
         var object = ray.get_collider()
         if object != null && object.is_in_group("Player"):
+            var pl = object.get_parent()
             player_in_view = true
-            if object.suspicion_level > 0: 
-                personal_suspicion += object.suspicion_level * delta
+            if pl.suspicion_level > 0: 
+                personal_suspicion += pl.suspicion_level * delta
             break;
 
 func move_along_path() -> void:
