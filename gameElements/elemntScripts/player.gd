@@ -44,8 +44,8 @@ func _physics_process(delta: float) -> void:
 	runAnims()
 
 	if !stowed_gun:
-		if suspicion_level < 2.0:
-			suspicion_level = 2.0
+		if suspicion_level < 5.0:
+			suspicion_level = 5.0
 		if x_dir > 0:
 			armR.visible = true
 			armL.visible = false
@@ -60,7 +60,8 @@ func _physics_process(delta: float) -> void:
 				armR.visible = false
 				armL.visible = true
 	else:
-		suspicion_level = 0
+		if suspicion_level < 50:
+			suspicion_level = 1
 		armR.visible = false
 		armL.visible = false
 

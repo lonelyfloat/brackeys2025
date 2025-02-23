@@ -2,6 +2,7 @@ extends Node2D
 
 @export var text : RichTextLabel
 @export var info_UI : Node
+@export var alarmLevel := 20
 
 
 var npcs: Array[Node]
@@ -15,7 +16,11 @@ func _ready():
 
 func _suspicion_raised_effect(amount):
 	suspicion_level += amount
-	pass # to be implemented
+	
+	if suspicion_level > alarmLevel:
+		npcs = get_tree().get_nodes_in_group("NPCs")
+		for npc in npcs: 
+			npc.personal_suspicion = suspicion_level
 	
 func _process(delta: float) -> void:
 	match suspicion_level:
@@ -26,7 +31,7 @@ func _process(delta: float) -> void:
 				info_UI.visible = false
 				sus_spoken = 0
 				
-		2.0 when sus_spoken < 2:
+		5.0 when sus_spoken < 2:
 			info_UI.visible = true
 			text.text = "this is a second mission promt"
 			if(Input.is_action_just_released("accept")):
