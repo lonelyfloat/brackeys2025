@@ -112,28 +112,28 @@ func _process(_delta: float) -> void:
 			sniber.scale.y = -0.13
 			gun.position = Vector2(0,50)
 			gun.rotation_degrees = -115
-			#gun.z_index = -2
+			gun.z_index = -2
 		elif x_dir < 0:
 			sniber.scale.y = 0.13
 			gun.position = Vector2(10,50)
 			gun.rotation_degrees = -70
-			#gun.z_index = -2
+			gun.z_index = -2
 		elif y_dir < 0:
 			sniber.scale.y = 0.13
 			gun.position = Vector2(-24,47)
 			gun.rotation_degrees = -60
-			#gun.z_index = -2
+			gun.z_index = -2
 		elif y_dir > 0:
 			sniber.scale.y = -0.13
 			gun.position = Vector2(24,44)
 			gun.rotation_degrees = -121
-			#gun.z_index = 2
+			gun.z_index = 2
 	else:
 		gun.process_mode = Node.PROCESS_MODE_INHERIT
-		#if y_dir > 0:
-			#gun.z_index = -2
-		#else:
-			#gun.z_index = 2
+		if y_dir > 0:
+			gun.z_index = -2
+		else:
+			gun.z_index = 2
 			
 		gun.position = Vector2(0,-21)
 

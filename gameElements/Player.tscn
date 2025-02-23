@@ -302,6 +302,7 @@ platform_floor_layers = 1
 script = ExtResource("1_xki20")
 bounce_power = 2.0
 terminal_velocity = 1000
+max_health = 700.0
 gun_recoil = 1.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

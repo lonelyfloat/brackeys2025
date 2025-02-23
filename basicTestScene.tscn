@@ -52,11 +52,13 @@ playback_type = 1
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_ctc2h")
+metadata/_edit_lock_ = true
 
 [node name="tles" type="Node2D" parent="NavigationRegion2D"]
 y_sort_enabled = true
 position = Vector2(872, 817)
 scale = Vector2(0.17, 0.17)
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="NavigationRegion2D/tles"]
 light_mask = 2
@@ -64,13 +66,14 @@ z_index = -50
 y_sort_enabled = true
 texture_filter = 2
 position = Vector2(-4429.41, -4823.53)
-scale = Vector2(701.776, 547.791)
+scale = Vector2(828.184, 750.623)
 texture = SubResource("GradientTexture2D_qywuv")
 metadata/_edit_lock_ = true
 
 [node name="invisiblewalls" type="TileMapLayer" parent="NavigationRegion2D/tles"]
 tile_map_data = PackedByteArray("AAD1/wAAAQAAAAoAAAD0/wAAAQAAAAoAAADz/wAAAQAAAAoAAADy/wAAAQAAAAoAAADz/wEAAQAAAAoAAAD0/wEAAQAAAAoAAAD0/wIAAQAAAAoAAAD0/wMAAQAAAAoAAAD0/wQAAQAAAAoAAADz/wQAAQAAAAoAAADz/wMAAQAAAAoAAADz/wIAAQAAAAoAAAD8/wMAAQAAAAoAAAD7/wMAAQAAAAoAAAD6/wMAAQAAAAoAAAD6/wIAAQAAAAoAAAD7/wIAAQAAAAoAAAD7/wEAAQAAAAoAAAD6/wEAAQAAAAoAAAD6/wAAAQAAAAoAAAD7/wAAAQAAAAoAAAD5/wAAAQAAAAoAAAD7////AQAAAAoAAAD7//7/AQAAAAoAAAD7//3/AQAAAAoAAAADAPb/AQAAAAoAAAADAPf/AQAAAAoAAAACAPf/AQAAAAoAAAABAPf/AQAAAAoAAAAAAPf/AQAAAAoAAAD///f/AQAAAAoAAAD+//f/AQAAAAoAAAD9//f/AQAAAAoAAAD8//f/AQAAAAoAAAD7//f/AQAAAAoAAAD7//b/AQAAAAoAAAD6//f/AQAAAAoAAAD6/wkAAQADAAoAAAA=")
 tile_set = ExtResource("5_jdqnp")
+metadata/_edit_lock_ = true
 
 [node name="FloorTiles" type="TileMapLayer" parent="NavigationRegion2D/tles"]
 z_index = -15
@@ -98,7 +101,7 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_8ur0g")]
 y_sort_enabled = true
-position = Vector2(711, 1292)
+position = Vector2(-141, -1771)
 bounce_power = 1.33
 terminal_velocity = 600
 max_health = 100.0
@@ -159,6 +162,7 @@ text = "Press 'space' to close"
 text_direction = 2
 
 [node name="Target" parent="." instance=ExtResource("9_w8fw3")]
+y_sort_enabled = false
 position = Vector2(498, 2610)
 light_texture_scale = 3
 ray_length = 400.0
@@ -207,6 +211,16 @@ position = Vector2(-1437, 220)
 max_health = 100.0
 initial_rotation = 90.0
 
+[node name="GenericCrowdNPC10" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(-1327, -1494)
+max_health = 100.0
+initial_rotation = 90.0
+
+[node name="GenericCrowdNPC11" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(1139, 981)
+max_health = 100.0
+initial_rotation = 90.0
+
 [node name="GenericCrowdNPC5" parent="." instance=ExtResource("8_xk3wj")]
 position = Vector2(-1866, 225)
 max_health = 100.0
@@ -222,6 +236,23 @@ max_health = 200.0
 [node name="GenericCrowdNPC6" parent="." instance=ExtResource("8_xk3wj")]
 position = Vector2(-143, -1251)
 initial_rotation = -90.0
+
+[node name="GenericCrowdNPC8" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(-468, -705)
+initial_rotation = -90.0
+
+[node name="GenericCrowdNPC9" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(816, -306)
+initial_rotation = -90.0
+
+[node name="GenericCrowdNPC7" parent="." instance=ExtResource("8_xk3wj")]
+position = Vector2(-786, 258)
+path = Array[Vector2]([Vector2(-792, 255), Vector2(-712, 273), Vector2(-572, 404), Vector2(274, 391), Vector2(941, 288), Vector2(1138, 231)])
+
+[node name="Guard5" parent="." instance=ExtResource("6_3g210")]
+position = Vector2(-1302, -481)
+path = Array[Vector2]([Vector2(-1348, -461), Vector2(-815, -485), Vector2(-836, -1218), Vector2(-1335, -1230)])
+max_health = 200.0
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="target_dead" from="Target" to="." method="_on_target_dead"]
